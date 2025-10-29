@@ -38,8 +38,7 @@ We plan to use JS in the webpages containing the games. For the first game (Atom
 ### Fifth Page, Balancing Equations
 ![Balancing Equations](https://github.com/lalapisay/WDProjMgPauigHernandez/blob/c7ecb7f4880e8fd0b9f2e0dae6dc465ef5dbca1f/wireframes/5_BalancingEquations.png)
 ### Sixth Page, Hybridization Model
-![Hybridization Model](https://github.com/lalapisay/WDProjMgPauigHernandez/blob/c7ecb7f4880e8fd0b9f2e0dae6dc465ef5dbca1f/wireframes/6_HybridizationModel
-.png)
+![Hybridization Model](https://github.com/lalapisay/WDProjMgPauigHernandez/blob/c7ecb7f4880e8fd0b9f2e0dae6dc465ef5dbca1f/wireframes/6_HybridizationModel.png)
 ### Seventh to Ninth Page, Quizzes
 ![Quiz](https://github.com/lalapisay/WDProjMgPauigHernandez/blob/c7ecb7f4880e8fd0b9f2e0dae6dc465ef5dbca1f/wireframes/7_QuizTemplate.png)
 
