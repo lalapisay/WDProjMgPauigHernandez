@@ -1,6 +1,9 @@
 # Project Proposal 
 ## ChemPlay
 
+### Logo:
+![Logo](assets/logo.png)
+
 ### Description:
 #### Some students just can't learn without some flare intigrated in the lesson. Through games and visual tools, we believe that students will be able to learn and appreciate the subject of chemistry more, especially since it is a bit complicated if you can't visualize certain topics.  
 
@@ -28,19 +31,19 @@ We plan to use JS in the webpages containing the games. For the first game (Atom
 #### Wireframes:
 
 ### First Page, Home
-![Home Page](https://github.com/lalapisay/WDProjMgPauigHernandez/blob/c7ecb7f4880e8fd0b9f2e0dae6dc465ef5dbca1f/wireframes/1_Home.png)
+![Home Page](wireframes/1_Home.png)
 ### Second Page, Game Directory
-![Game Directory](https://github.com/lalapisay/WDProjMgPauigHernandez/blob/c7ecb7f4880e8fd0b9f2e0dae6dc465ef5dbca1f/wireframes/2_GameDirectory.png)
+![Game Directory](wireframes/2_GameDirectory.png)
 ### Third Page, References
-![References](https://github.com/lalapisay/WDProjMgPauigHernandez/blob/c7ecb7f4880e8fd0b9f2e0dae6dc465ef5dbca1f/wireframes/3_References.png)
+![References](wireframes/3_References.png)
 ### Fourth Page, Atom Merging
-![Atom Merging](https://github.com/lalapisay/WDProjMgPauigHernandez/blob/c7ecb7f4880e8fd0b9f2e0dae6dc465ef5dbca1f/wireframes/4_AtomMerging.png)
+![Atom Merging](wireframes/4_AtomMerging.png)
 ### Fifth Page, Balancing Equations
-![Balancing Equations](https://github.com/lalapisay/WDProjMgPauigHernandez/blob/c7ecb7f4880e8fd0b9f2e0dae6dc465ef5dbca1f/wireframes/5_BalancingEquations.png)
+![Balancing Equations](wireframes/5_BalancingEquations.png)
 ### Sixth Page, Hybridization Model
-![Hybridization Model](https://github.com/lalapisay/WDProjMgPauigHernandez/blob/c7ecb7f4880e8fd0b9f2e0dae6dc465ef5dbca1f/wireframes/6_HybridizationModel.png)
+![Hybridization Model](wireframes/6_HybridizationModel.png)
 ### Seventh to Ninth Page, Quizzes
-![Quiz](https://github.com/lalapisay/WDProjMgPauigHernandez/blob/c7ecb7f4880e8fd0b9f2e0dae6dc465ef5dbca1f/wireframes/7_QuizTemplate.png)
+![Quiz](wireframes/7_QuizTemplate.png)
 
 
 
