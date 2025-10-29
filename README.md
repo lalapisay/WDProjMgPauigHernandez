@@ -13,11 +13,10 @@
 # Page Breakdown:
 - Page 1, Home: This page contains the main menu of the games, a small introduction to the website and the things it has to offer, and an About Us section.
 - Page 2, Tool/Game Directory: This page will contain all the games/tools the user can play related to chemistry. 
-- Page 3, Atom Merging Game: This page contains a drag and drop game similar to Little Alchemy. In this page, the user can get any element from the periodic table and merge it with another element. For example, the user gets the element Na and places it on the blank space right above the periodic table. Then, the user gets Cl and places it on top of the Na, forming NaCl or Sodium Chloride.
-- Page 4, Chemistry mini quiz selector: This page contains three buttons representing a level of difficulty from Easy to Difficult and a small list at the bottom of these buttons with the topics discussed in Grade 9 Chemistry from the first to second quarter. 
-- Page 5-7, Chemistry mini quiz: These pages contain the actual chem quiz the user selected in the selector. There are three different pages for this because each difficulty has a different quiz.
-- Page 8, Balancing Equations Game: This page contains a container with a chemical equation on its top, an image of a seesaw-like structure carrying all the coefficients in the equation, and a small button at its bottom that opens a space for scratch. This page allows the user to visualize balancing equations by literally "balancing" equations. After an equation is balanced, another equation will be given.
-- Page 9, Hybridization Model Game: This page contains a small molecular biology model in the middle of a container and a small box containing empty orbital diagrams for hybridization. This allows the user to see the relationship between the molecular biology of an atom with its orbital diagram. 
+- Page 3, Atom Merging Game: This page contains a drag and drop game similar to Little Alchemy. In this page, the user can get any element from the periodic table and merge it with another element. For example, the user gets the element Na and places it on the blank space right above the periodic table. Then, the user gets Cl and places it on top of the Na, forming NaCl or Sodium Chloride. 
+- Page 4-6, Chemistry mini quiz: These pages contain the actual chem quiz the user selected in the selector. There are three different pages for this because each difficulty has a different quiz.
+- Page 7, Balancing Equations Game: This page contains a container with a chemical equation on its top, an image of a seesaw-like structure carrying all the coefficients in the equation, and a small button at its bottom that opens a space for scratch. This page allows the user to visualize balancing equations by literally "balancing" equations. After an equation is balanced, another equation will be given.
+- Page 8, Hybridization Model Game: This page contains a small molecular biology model in the middle of a container and a small box containing empty orbital diagrams for hybridization. This allows the user to see the relationship between the molecular biology of an atom with its orbital diagram. 
 
 
 
@@ -37,7 +36,6 @@ We plan to use JS in the webpages containing the games. For the first game (Atom
 ![Game Directory](https://github.com/lalapisay/WDProjMgPauigHernandez/blob/c7ecb7f4880e8fd0b9f2e0dae6dc465ef5dbca1f/assets/Wireframe2.png)
 ### Third Page, Atom Merging
 ![Atom Merging](https://github.com/lalapisay/WDProjMgPauigHernandez/blob/c7ecb7f4880e8fd0b9f2e0dae6dc465ef5dbca1f/assets/Wireframe3.png)
-![Quiz Selector]()
 ![Quiz]()
 ![Balancing Equations]()
 ![Hybridization Model]()
