@@ -32,9 +32,13 @@ We plan to use JS in the webpages containing the games. For the first game (Atom
 #### Wireframes:
 
 ### First Page, Home
-![Home Page]()
-
-
+![Home Page](https://github.com/lalapisay/WDProjMgPauigHernandez/blob/c7ecb7f4880e8fd0b9f2e0dae6dc465ef5dbca1f/assets/Wireframe1.png)
+![Game Directory](https://github.com/lalapisay/WDProjMgPauigHernandez/blob/c7ecb7f4880e8fd0b9f2e0dae6dc465ef5dbca1f/assets/Wireframe2.png)
+![Atom Merging](https://github.com/lalapisay/WDProjMgPauigHernandez/blob/c7ecb7f4880e8fd0b9f2e0dae6dc465ef5dbca1f/assets/Wireframe3.png)
+![Quiz Selector]()
+![Quiz]()
+![Balancing Equations]()
+![Hybridization Model]()
 
 
 
