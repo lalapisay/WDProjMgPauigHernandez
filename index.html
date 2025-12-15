@@ -40,6 +40,27 @@
     text-decoration: none;
     font-size: 20px;
 }
+.container{
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+}
+.container img{
+  width:150%;
+  height: auto;
+  display:block;
+}
+.text-overlay{
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 18px;
+  border-radius: 5px;
+}
 </style>
 
 <body>
@@ -49,4 +70,11 @@
         <a href="./public/page1.html">Games & Quizzes</a>
         <h1>ChemPlay</h1>
       </div> 
-</body>
+    
+    <div class="container">
+      <img src="./assets/chembanner.png" alt = "bg">
+      <div class="text-overlay">
+        <h1>slime cs</h1>
+      </div>
+    </div>
+      
