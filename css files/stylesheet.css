@@ -1,0 +1,28 @@
+.topnav{
+    background-color: #191716;
+    overflow: hidden;}
+.topnav a {
+  float: left;
+  color: #fffb00;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 30px;}
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;}
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;}
+.topnav img {
+    float: left;
+  padding: 14px 16px;
+}
+.topnav h1{
+    float:right;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;}
+
+/*all of the above is for the navigation bar -- Lala*/
