@@ -26,3 +26,19 @@
     text-decoration: none;}
 
 /*all of the above is for the navigation bar -- Lala*/
+
+body{ 
+    background-color: #ece9d7;
+ } 
+
+.navtop{ 
+    background-color: #3d348b; 
+    overflow: hidden;} 
+
+.navtop h1{ 
+    float: center; 
+    text-align: center; 
+    font-size: 1.5rem;
+    color: white; }
+
+/*Since every page is almost built the same ^^ */
