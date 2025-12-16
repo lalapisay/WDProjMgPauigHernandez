@@ -8,45 +8,18 @@
     <meta name="author" content="Lala Pauig, Enzo Hernandez">
     
     <title>Home!</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./css files/stylesheet.css">
     <link rel = "icon" href = "./assets/logo.png" type = "image/png">
 </head>
 <style>
-.topnav{
-    background-color: #191716;
-    overflow: hidden;}
-.topnav a {
-  float: left;
-  color: #fffb00;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 30px;}
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;}
-.topnav a.active {
-  background-color: #04AA6D;
-  color: white;}
-.topnav img {
-    float: left;
-  padding: 14px 16px;
-}
-.topnav h1{
-    float:right;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 20px;
-}
-.container{
-  width: 100%;
-  max-width: 500px;
-  margin: auto;
-}
+.parent-container {
+    width: 80%; 
+    margin: 0 auto; 
+    border: 1px solid black;
+  }
 .container img{
-  width:150%;
+  border: 5px solid black;
+  width:99.20%;
   height: auto;
   display:block;
 }
@@ -61,6 +34,47 @@
   font-size: 18px;
   border-radius: 5px;
 }
+
+.text-overlay h1{
+ font-size: 150px;
+}
+
+.text-overlay button{
+  font-size: larger;
+  border: none; 
+  background-color: #fffb00; 
+  padding: 15px 32px; 
+  text-align: center; 
+  font-size: 16px; 
+  margin: 2px 2px; 
+  border-radius: 15px 50px 15px 50px; 
+  cursor: pointer;
+}
+
+.holdstuff{
+  display: flex; 
+    justify-content: center; 
+    gap: 15px;
+}
+
+.boxcontent{
+  background-color: #b7ebff;
+    border: 8px solid #748f9a; 
+    width: 95%; 
+    margin-top: 15px; 
+    margin-bottom: 15px; 
+    margin-left: 20px; 
+    margin-right: 20px; 
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.align{
+  display: flex;
+  flex-direction: row;
+}
+
 </style>
 
 <body>
@@ -70,11 +84,53 @@
         <a href="./public/page1.html">Games & Quizzes</a>
         <h1>ChemPlay</h1>
       </div> 
+
+      <hr style="border-top: 30px solid #3d348b; margin: auto;">
     
     <div class="container">
       <img src="./assets/chembanner.png" alt = "bg">
+      
       <div class="text-overlay">
-        <h1>slime cs</h1>
-      </div>
+        <h1>Slogan</h1>
+        <button href="./public/2_GameDirectory.html">Start now.</button>
+      </div><!--for overlay text-->
+
     </div>
       
+      <hr style="border-top: 30px solid #3d348b; margin: auto;">
+
+    <div class="holdstuff">
+
+      <div class="boxcontent">
+        <h1>About Games</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit gravida urna eget varius. Nunc ac pulvinar felis. Pellentesque non sem vel magna vehicula tincidunt sed a purus. Integer pretium tempus vehicula. Vivamus at metus libero. In sit amet convallis orci. Nulla tortor nisl, malesuada quis gravida non, ultrices nec lorem. </p>
+      </div>
+
+      <div class="boxcontent">
+        <h1>About Games</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit gravida urna eget varius. Nunc ac pulvinar felis. Pellentesque non sem vel magna vehicula tincidunt sed a purus. Integer pretium tempus vehicula. Vivamus at metus libero. In sit amet convallis orci. Nulla tortor nisl, malesuada quis gravida non, ultrices nec lorem. </p>
+      </div>
+
+    </div><!--hold stuff div-->
+
+    <hr style="border: none;">
+
+    <div class="boxcontent">
+        <h1>About Us</h1>
+        
+        <div class="align">
+          <img src="./assets/logo.png" style="width: 10%;">
+          <p>Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit gravida urna eget varius. Nunc ac pulvinar felis. Pellentesque non sem vel magna vehicula tincidunt sed a purus. Integer pretium tempus vehicula. Vivamus at metus libero. In sit amet convallis orci. Nulla tortor nisl, malesuada quis gravida non, ultrices nec lorem. </p>
+        </div>
+        <div class="align">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit gravida urna eget varius. Nunc ac pulvinar felis. Pellentesque non sem vel magna vehicula tincidunt sed a purus. Integer pretium tempus vehicula. Vivamus at metus libero. In sit amet convallis orci. Nulla tortor nisl, malesuada quis gravida non, ultrices nec lorem. </p>
+          <img src="./assets/logo.png" style="width: 10%;">
+        </div>
+
+      </div>
+
+    <footer>
+      <h1>Copyright</h1>
+
+      <button href="./public/3_References.html">References</button>
+    </footer>

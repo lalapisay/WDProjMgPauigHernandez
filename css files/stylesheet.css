@@ -41,4 +41,19 @@ body{
     font-size: 1.5rem;
     color: white; }
 
+footer{
+  background-color: orange;
+  display: flex;
+  flex-direction: row;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+footer button{
+  background-color: #c8b1a4;
+  border-radius: 10px;
+  border: none;
+  margin-left: 80%;
+}
+
 /*Since every page is almost built the same ^^ */
