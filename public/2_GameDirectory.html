@@ -13,38 +13,228 @@
 
 </head>
 <style>
-    body{
-        background-color: #ece9d7;
-    }
-    .navtop{
-    background-color: #8d007a;
-    overflow: hidden;}
-    .navtop h1{
-        float: center;
-        text-align: center;
-        font-size: 1.5rem;
-    }
-    .gamecontainer1{
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-        
-    }
-    .gamecontainer2{
-        align-items: center;
-    }
-    
-</style>
+body{ 
+    background-color: #ece9d7;
+ } 
 
+ .navtop{ 
+    background-color: #3d348b; 
+    overflow: hidden;} 
+
+.navtop h1{ 
+    float: center; 
+    text-align: center; 
+    font-size: 1.5rem; } 
+.gamecontainer1{ 
+    display: flex; 
+    justify-content: center; 
+    gap: 15px; } 
+
+.gamecontainer2{ 
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;} 
+
+.contentcontainer{ 
+    background-color: white;
+    border: 2px solid black; 
+    width: 40%; 
+    margin-top: 15px; 
+    margin-bottom: 15px; 
+    margin-left: 20px; 
+    margin-right: 20px; 
+    display: flex; 
+    flex-direction: column; } 
+
+.contentbody{ 
+        padding: 10px; 
+        display: flex; 
+        flex-direction: row; } 
+
+.contbar{ 
+    overflow: hidden; 
+    background-color: #b7ebff; 
+    margin-top: 0; }
+
+.contentbody img{ 
+    width: 30%; 
+    height: auto; 
+    border: 5px solid rgb(0, 0, 0); 
+    float: left; } 
+
+.contentbody p{ 
+    margin-right: 1px; } 
+
+    .buttoncontainer{ 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    margin-top: 10px; 
+    margin-bottom: 10px; } 
+
+.buttoncontainer button{ 
+    border: none; 
+    background-color: orange; 
+    padding: 15px 32px; 
+    text-align: center; 
+    font-size: 16px; 
+    margin: 2px 2px; 
+    border-radius: 15px 50px 15px 50px; 
+    cursor: pointer; }
+
+.contentcontainerbutdifferent{ 
+    background-color: white;
+    border: 2px solid black; 
+    width: 100%; 
+    margin-top: 15px; 
+    margin-bottom: 15px; 
+    margin-left: 20px; 
+    margin-right: 20px; 
+    display: flex; 
+    flex-direction: column; } 
+
+.row{
+    display: flex;
+}
+
+.column{
+    flex: 33.33%;
+    padding: 5px;
+}
+</style>
+<body>
 <div class="topnav">
-        <img src="./assets/logo.png" alt="Logo" height="50px" width="50px">
-        <a class="active" href="#home">Home</a>
-        <a href="./public/page1.html">Games & Quizzes</a>
-        <h1>ChemPlay</h1>
+<img src="../assets/logo.png" alt="Logo" height="50px" width="50px">
+<a class="active" href="#home">Home</a>
+<a href="./public/page1.html">Games & Quizzes</a>
+<h1>ChemPlay</h1>
 </div> 
 
 <div class="navtop">
     <h1>GAMES</h1>
 </div>
 
+<div class="gamecontainer1">
+    <div class="contentcontainer">
+        <div class="contbar">
+            <h2>Atom Merging</h2>
+        
+        </div> <!--Content bar-->
+        
+        <div class="contentbody">
+            <img src="../assets/placeholder.png">
+            <p>I love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlc</p>
+        </div><!--content ng body ng container-->
 
+        <div class="buttoncontainer">
+            <button href="./4_AtomMerging.html">Play NOW.</button>
+
+        </div><!--For the play button-->
+
+    
+    </div><!--End of container 1 game container 1-->
+    
+    <div class="contentcontainer"><!--Start of container 2 game container 1-->
+        <div class="contbar">
+            <h2>Balancing Equations</h2>
+        
+        </div> <!--Content bar-->
+        
+        <div class="contentbody">
+            <img src="../assets/placeholder.png">
+            <p>I love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlc</p>
+        </div><!--content ng body ng container-->
+
+        <div class="buttoncontainer">
+            <button href="./5_BalancingEquations.html">Play NOW.</button>
+    </div>
+</div></div><!--End of container 1-->
+
+<!--Barrier-->
+
+<div class="gamecontainer2">
+    <div class="contentcontainer">
+        <div class="contbar">
+            <h2>Balancing Equations</h2>
+        
+        </div> <!--Content bar-->
+        
+        <div class="contentbody">
+            <img src="../assets/placeholder.png">
+            <p>I love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlc</p>
+        </div><!--content ng body ng container-->
+
+        <div class="buttoncontainer">
+            <button href="./5_BalancingEquations.html">Play NOW.</button>
+    </div>
+    </div>
+</div><!--End of gamecont2-->
+
+<div class="navtop">
+    <h1>QUIZZES</h1>
+</div>
+
+<div class="row">
+  <div class="column">
+    <div class="contentcontainerbutdifferent">
+        <div class="contbar">
+            <h2>Balancing Equations</h2>
+        
+        </div> <!--Content bar-->
+
+        <div class="buttoncontainer">
+            <button href="./5_BalancingEquations.html">Play NOW.</button></div>
+        
+        <div class="contentbody">
+            
+            <p>I love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlc</p>
+        </div><!--content ng body ng container-->
+
+        
+    </div>
+  </div><!--for column-->
+  
+  <div class="column">
+    <div class="contentcontainerbutdifferent">
+        <div class="contbar">
+            <h2>Balancing Equations</h2>
+        
+        </div> <!--Content bar-->
+
+        <div class="buttoncontainer">
+            <button href="./5_BalancingEquations.html">Play NOW.</button></div>
+        
+        <div class="contentbody">
+            
+            <p>I love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlc</p>
+        </div><!--content ng body ng container-->
+
+        
+    </div>
+  </div><!--for column-->
+  
+  <div class="column">
+    <div class="contentcontainerbutdifferent">
+        <div class="contbar">
+            <h2>Balancing Equations</h2>
+        
+        </div> <!--Content bar-->
+
+        <div class="buttoncontainer">
+            <button href="./5_BalancingEquations.html">Play NOW.</button></div>
+        
+        <div class="contentbody">
+            
+            <p>I love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlcI love yuri ddlc</p>
+        </div><!--content ng body ng container-->
+
+        
+    </div>
+  </div><!--for column-->
+
+</div>
+
+<footer>
+
+</footer>
