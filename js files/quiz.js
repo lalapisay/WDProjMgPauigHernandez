@@ -3,12 +3,11 @@ const easyanswer = [1, 4, 3, 1, 2, 2, 1, 4, 3, 3];
 const mediumanswer = [2, 4, 1, 1, 3, 2, 3, 4, 4, 2];
 const hardanswer = [4, 3, 2, 3, 4, 1, 2, 1, 4, 3];
 
-// Question data: replace the sample text with your real questions/options
 const easyQuestions = [
     { q: "What is H2O?", options: ["Water", "Hydrogen", "Oxygen", "Helium"] },
     { q: "What is NaCl commonly called?", options: ["Baking soda", "Sugar", "Vinegar", "Salt"] },
     { q: "What is the chemical symbol for Gold?", options: ["Gd", "Ag", "Au", "Go"] },
-    { q: "Which gas do plants use for photosynthesis?", options: ["Oxygen", "Carbon dioxide", "Nitrogen", "Helium"] },
+    { q: "Which gas do plants use for photosynthesis?", options: ["Carbon dioxide", "Oxygen", "Nitrogen", "Helium"] },
     { q: "What is the pH of pure water (approx)?", options: ["1", "7", "14", "10"] },
     { q: "What is the chemical formula for table sugar?", options: ["H2O", "C12H22O11", "CO2", "NaCl"] },
     { q: "Which element is a noble gas?", options: ["Neon", "Chlorine", "Sodium", "Calcium"] },
@@ -18,29 +17,29 @@ const easyQuestions = [
 ];
 
 const mediumQuestions = [
-    { q: "Which ion has gained an electron?", options: ["Anion", "Cation", "Radical", "Isotope"] },
-    { q: "What is the molar mass unit?", options: ["g/mol", "kg", "mol", "L"] },
+    { q: "Which ion has gained an electron?", options: ["Cation", "Anion", "Radical", "Isotope"] },
+    { q: "What is the molar mass unit?", options: ["L", "kg", "mol", "g/mol"] },
     { q: "Which bond is the strongest?", options: ["Covalent", "Ionic", "Hydrogen", "Van der Waals"] },
     { q: "What is the product of an acid + base?", options: ["Salt and water", "Gas", "Metal", "Polymer"] },
-    { q: "Which element is most electronegative?", options: ["Fluorine", "Oxygen", "Chlorine", "Nitrogen"] },
-    { q: "What is Avogadro's number (approx)?", options: ["6.02e23", "3.00e8", "9.81", "1.60e-19"] },
-    { q: "Which phase change is gas->liquid?", options: ["Condensation", "Sublimation", "Evaporation", "Deposition"] },
-    { q: "What is the oxidation state of O in H2O?", options: ["-2", "+1", "+2", "0"] },
-    { q: "Which is a polar molecule?", options: ["H2O", "O2", "N2", "CH4"] },
-    { q: "What does pH measure?", options: ["Acidity", "Temperature", "Pressure", "Mass"] }
+    { q: "Which element is most electronegative?", options: ["Chlorine", "Oxygen", "Fluorine", "Nitrogen"] },
+    { q: "What is Avogadro's number (approx)?", options: ["3.00e8", "6.02e23", "9.81", "1.60e-19"] },
+    { q: "Which phase change is gas->liquid?", options: ["Evaporation", "Sublimation", "Condensation", "Deposition"] },
+    { q: "What is the oxidation state of O in H2O?", options: ["0", "+1", "+2", "-2"] },
+    { q: "Which is a polar molecule?", options: ["N2", "O2", "CH4", "H2O"] },
+    { q: "What does pH measure?", options: ["Temperature", "Acidity", "Pressure", "Mass"] }
 ];
 
 const hardQuestions = [
-    { q: "Which molecular geometry has 3 bonded atoms and 1 lone pair?", options: ["Trigonal pyramidal","Tetrahedral","Bent","Trigonal planar"] },
-    { q: "Which quantum number describes orbital shape?", options: ["l (azimuthal)", "n (principal)", "m (magnetic)", "s (spin)"] },
-    { q: "What is the hybridization of carbon in ethene (C2H4)?", options: ["sp2","sp3","sp","dsp2"] },
-    { q: "Which statement is true for an endothermic reaction?", options: ["Absorbs heat","Releases heat","No heat change","Spontaneous always"] },
-    { q: "What is the formula for density?", options: ["mass/volume","mass+volume","volume/mass","force/area"] },
+    { q: "Which molecular geometry has 3 bonded atoms and 1 lone pair?", options: ["Trigonal planar","Tetrahedral","Bent","Trigonal pyramidal"] },
+    { q: "Which quantum number describes orbital shape?", options: ["m (magnetic)", "n (principal)", "l (azimuthal)", "s (spin)"] },
+    { q: "What is the hybridization of carbon in ethene (C2H4)?", options: ["sp3","sp2","sp","dsp2"] },
+    { q: "Which statement is true for an endothermic reaction?", options: ["No heat change","Releases heat","Absorbs heat","Spontaneous always"] },
+    { q: "What is the formula for density?", options: ["force/area","mass+volume","volume/mass","mass/volume"] },
     { q: "Which compound exhibits hydrogen bonding?", options: ["HF","HCl","H2","Ne"] },
-    { q: "Which spectroscopy technique measures molecular vibrations?", options: ["IR spectroscopy","UV-Vis","NMR","X-ray"] },
+    { q: "Which spectroscopy technique measures molecular vibrations?", options: ["UV-Vis","IR spectroscopy","NMR","X-ray"] },
     { q: "What is the unit of energy commonly used in chemistry?", options: ["kJ","Pa","m","s"] },
-    { q: "Which acid is stronger?", options: ["HCl","CH3COOH","H2O","NH3"] },
-    { q: "What is the equilibrium constant expression for aA + bB ⇌ cC?", options: ["[C]^c/([A]^a[B]^b)", "[A]^a[B]^b/[C]^c", "[C]/[A]", "[A]+[B]"] }
+    { q: "Which acid is stronger?", options: ["CH3COOH","H2O","NH3","HCl"] },
+    { q: "What is the name of CH3COOH?", options: ["Acetate", "Acetyl", "Acetic acid", "Acetyl chloride"] }
 ];
 
 let tama = 0;
