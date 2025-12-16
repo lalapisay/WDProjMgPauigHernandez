@@ -295,6 +295,18 @@ input[type=radio]:checked ~ .option {
     from {opacity: 0;}
     to {opacity: 1;}
   }
+
+.fordesc{
+    background-color: rgb(255, 126, 126);
+    border: 2px solid rgb(255, 25, 25); 
+    width: 40%; 
+    margin-top: 15px; 
+    margin-bottom: 15px; 
+    margin-left: 20px; 
+    margin-right: 20px; 
+    display: flex; 
+    flex-direction: column; 
+}
 </style>
 
 <body onload="startHardQuiz()">
@@ -378,6 +390,12 @@ input[type=radio]:checked ~ .option {
                 <button onclick="hardhandleNextQuestion()">Next Question</button>
             </div>
 
+        </div>
+
+        <div class="fordesc">
+            <h3>This is the Hard quiz, a quiz designed to challenge and assess students on their understanding on Molecular Geometry, Atomic Structure, Hybridization, and much more "advanced" topics. The quiz has a total of 10 items with a singular topic assigned to each item. It also has a highest possible score of 10 points and a passing score of 6. No time is given in the quiz, so students may answer at their own pace. </h3>
+            <h3>.</h3>
+            <h3>To keep things short and to maintain the challenging appearance of the quiz, only the simpler lessons will be explained. Molecular Geometry is used when you're trying to predict the shape of an atom using its bonded pairs and lone pairs. Atomic Structure is the understanding of what each quantum number represents. Lastly, Hybridization is when you atomic orbitals to form stronger hybrid orbitals.</h3>
         </div>
     </main>
     <script src="../js files/quiz.js"></script>

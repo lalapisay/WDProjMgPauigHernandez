@@ -295,6 +295,18 @@ input[type=radio]:checked ~ .option {
     from {opacity: 0;}
     to {opacity: 1;}
   }
+
+  .fordesc{
+    background-color: rgb(246, 255, 126);
+    border: 2px solid rgb(241, 255, 44); 
+    width: 40%; 
+    margin-top: 15px; 
+    margin-bottom: 15px; 
+    margin-left: 20px; 
+    margin-right: 20px; 
+    display: flex; 
+    flex-direction: column; 
+}
 </style>
 
 <body onload="startMediumQuiz()">
@@ -378,6 +390,12 @@ input[type=radio]:checked ~ .option {
                 <button onclick="mediumhandleNextQuestion()">Next Question</button>
             </div>
 
+        </div>
+
+        <div class="fordesc">
+            <h3>This is the Medium Quiz, an average level quiz designed to help students recall the types of chemical bonds, the types of ions, the types of molecules, the periodic trends, the phase changes, and much more. Just like the Easy and Hard quiz, this quiz has a maximum of 10 items. It has a highest possible score of 10 points too and a passing score of 6. The quiz has no timer built into it, so the student may take it at their own pace.</h3>
+            <h3>.</h3>
+            <h3>To explain the most basic topics in the quiz, the two types of ions are the Cations and the Anions. A cation bonding with an anion forms an ionic bond, an anion and an anion bonding forms a covalent bond, and two cations bonding form a cation-cation bond. The periodic trends are trends that can be easily observed using the periodic table. These trends included Electronegativity, Electron Affinity, Ionization Energy, and Atomic Radius. The phase changes are just the changes that occur when a certain material of any matter type turn into another matter type. An example of this is a solid object turning into liquid or gas.</h3>
         </div>
     </main>
     <script src="../js files/quiz.js"></script>
