@@ -1,5 +1,7 @@
 
-const answer = [1, 4, 3, 1, 2, 2, 1, 4, 3, 3];
+const easyanswer = [1, 4, 3, 1, 2, 2, 1, 4, 3, 3];
+const mediumanswer = [2, 4, 1, 1, 3, 2, 3, 4, 4, 2];
+const hardanswer = [4, 3, 2, 3, 4, 1, 2, 1, 4, 3];
 
 let tama = 0;
 let mali = 0;
@@ -24,31 +26,27 @@ function NextQuestion(index) {
     const radios = document.querySelectorAll('input[name="option"]');
     radios.forEach(r => r.checked = false);
 }
-
-function handleNextQuestion(){
+// easy
+function easyhandleNextQuestion(){
     document.getElementById("question-number").innerText = qn;
     const selected = document.querySelector('input[name="option"]:checked');
     if (!selected) {
-        // show option modal if present
         const optionModal = document.getElementById("option-modal");
         if (optionModal) optionModal.style.display = "flex";
         else alert("Please choose an option");
         return;
     }
 
-    // Compare numeric values
     const selectedValue = parseInt(selected.value, 10);
-    if (answer[qn-1] === selectedValue){
+    if (easyanswer[qn-1] === selectedValue){
         tama++;
     } else {
         mali++;
     }
 
-    // Update score display
     document.getElementById("player-score").innerText = tama;
 
-    // If this was the last question, show results
-    if (qn >= answer.length){
+    if (qn >= easyanswer.length){
         grade = tama * 10;
         document.getElementById("grade-percentage").innerText = grade;
         document.getElementById("right-answers").innerText = tama;
@@ -59,7 +57,74 @@ function handleNextQuestion(){
         return;
     }
 
-    // otherwise go to next question
+    qn++;
+    NextQuestion(qn-1);
+}
+// medium
+function mediumhandleNextQuestion(){
+    document.getElementById("question-number").innerText = qn;
+    const selected = document.querySelector('input[name="option"]:checked');
+    if (!selected) {
+        const optionModal = document.getElementById("option-modal");
+        if (optionModal) optionModal.style.display = "flex";
+        else alert("Please choose an option");
+        return;
+    }
+
+    const selectedValue = parseInt(selected.value, 10);
+    if (mediumanswer[qn-1] === selectedValue){
+        tama++;
+    } else {
+        mali++;
+    }
+
+    document.getElementById("player-score").innerText = tama;
+
+    if (qn >= mediumanswer.length){
+        grade = tama * 10;
+        document.getElementById("grade-percentage").innerText = grade;
+        document.getElementById("right-answers").innerText = tama;
+        document.getElementById("wrong-answers").innerText = mali;
+        document.getElementById("score-modal").style.display = "flex";
+        const remarks = document.getElementById("remarks");
+        if (remarks) remarks.innerText = grade >= 60 ? "Well done!" : "Keep practicing!";
+        return;
+    }
+
+    qn++;
+    NextQuestion(qn-1);
+}
+// hard
+function hardhandleNextQuestion(){
+    document.getElementById("question-number").innerText = qn;
+    const selected = document.querySelector('input[name="option"]:checked');
+    if (!selected) {
+        const optionModal = document.getElementById("option-modal");
+        if (optionModal) optionModal.style.display = "flex";
+        else alert("Please choose an option");
+        return;
+    }
+
+    const selectedValue = parseInt(selected.value, 10);
+    if (hardanswer[qn-1] === selectedValue){
+        tama++;
+    } else {
+        mali++;
+    }
+
+    document.getElementById("player-score").innerText = tama;
+
+    if (qn >= hardanswer.length){
+        grade = tama * 10;
+        document.getElementById("grade-percentage").innerText = grade;
+        document.getElementById("right-answers").innerText = tama;
+        document.getElementById("wrong-answers").innerText = mali;
+        document.getElementById("score-modal").style.display = "flex";
+        const remarks = document.getElementById("remarks");
+        if (remarks) remarks.innerText = grade >= 60 ? "Well done!" : "Keep practicing!";
+        return;
+    }
+
     qn++;
     NextQuestion(qn-1);
 }
@@ -67,8 +132,6 @@ function handleNextQuestion(){
 function closeScoreModal(){
     const modal = document.getElementById("score-modal");
     if (modal) modal.style.display = "none";
-    // optional: reset quiz or reload
-    // location.reload();
 }
 
 function closeOptionModal(){
@@ -76,5 +139,4 @@ function closeOptionModal(){
     if (modal) modal.style.display = "none";
 }
 
-// Initialize first question
 NextQuestion(0);
