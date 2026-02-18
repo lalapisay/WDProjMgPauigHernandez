@@ -16,6 +16,9 @@
 - Page 5, Balancing Equations Game: This page contains a container with a chemical equation on its top, an image of a seesaw-like structure carrying all the coefficients in the equation, and a small button at its bottom that opens a space for scratch. This page allows the user to visualize balancing equations by literally "balancing" equations. After an equation is balanced, another equation will be given.
 - Page 6, Hybridization Model Game: This page contains a small molecular biology model in the middle of a container and a small box containing empty orbital diagrams for hybridization. This allows the user to see the relationship between the molecular biology of an atom with its orbital diagram. 
 - Page 7-9, Chemistry mini quiz: These pages contain the actual chem quiz the user selected in the selector. There are three different pages for this because each difficulty has a different quiz.
+- Page 10, Sign up Page: This page will gather all the needed user data to create an account and access recommendations for problemsets based on the user's interests.
+- Page 11, User Settings: This page will allow the user to change their username, profile picture, password, and email. (Profile Picture will be added to the top navbar next to the website title)
+- Page 12, Problem Set List: This page will contain pdf files which will contain sample questions that the user can download and answer. The recommendation file will be based on the chosen topics in the sign up form.
 
 
 
@@ -44,6 +47,12 @@ We plan to use JS in the webpages containing the games. For the first game (Atom
 ![Hybridization Model](wireframes/6_HybridizationModel.png)
 ### Seventh to Ninth Page, Quizzes
 ![Quiz](wireframes/7_QuizTemplate.png)
+### Tenth Page, Quizzes
+![Quiz](wireframes/8_SignUpPage.png)
+### Eleventh Page, Quizzes
+![Quiz](wireframes/9_UserSettings.png)
+### Twelfth Page, Quizzes
+![Quiz](wireframes/10_ProblemSetList.png)
 
 
 
