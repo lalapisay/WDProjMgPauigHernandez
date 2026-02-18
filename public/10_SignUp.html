@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WHAT THE SIGMAA!!">
+    <meta name="keywords" content="2Q, ChemPlay, Projects, I HATE CHEM">
+    <meta name="author" content="Lala Pauig, Enzo Hernandez">
+    
+    <title>Sign Up Page</title>
+    <link rel="stylesheet" href="../css files/stylesheet.css">
+    <link rel = "icon" href = "../assets/logo.png" type = "image/png">
+
+</head>
+<style>
+    .box{
+        background-color: white;
+        flex-direction: column;
+        width: auto;
+        height: auto;
+        border: 3px solid black;
+        padding: 15px 15px 15px 15px;
+        margin-top: 20px;
+    }
+    .minibox{
+        background-color: none;
+        flex-direction: column;
+    }
+    .tinybox{
+        background-color: none;
+        flex-direction: row;
+    }
+    .gradegrid{
+        display: flex;
+        gap: 2rem;
+        align-items: flex-start;
+        margin: 0.5rem 0 1rem 0;
+    }
+    .gcol{
+        display: flex;
+        flex-direction: column;
+    }
+    .gitem{
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .subbot{
+        border-radius: 12px;
+        padding: 10px 20px;
+        background-color: orange;
+        border: none;
+    }
+</style>
+<body>
+    <div class="topnav">
+<img src="../assets/logo.png" alt="Logo" height="50px" width="50px">
+<a class="active" href="../index.html">Home</a>
+<a href="./2_GameDirectory.html">Games & Quizzes</a>
+<a href="./10_SignUp.html">Sign Up</a>
+<h1>ChemPlay</h1>
+</div> 
+
+<div class="navtop">
+    <h1>SIGN UP</h1>
+</div>
+
+
+
+<div class="box">
+    <form>
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        <label for="confirm_password">Confirm Password:</label><br>
+        <input type="password" id="confirm_password" name="confirm_password"><br><br>
+        <!--radio buttons for each grade level-->
+        <div class="gradegrid">
+            <div class="gcol">
+                <label class="gitem"><input type="radio" id="g12" name="level" value="grade12"> Grade 12</label>
+                <label class="gitem"><input type="radio" id="g11" name="level" value="grade11"> Grade 11</label>
+                <label class="gitem"><input type="radio" id="g10" name="level" value="grade10"> Grade 10</label>
+            </div>
+            <div class="gcol">
+                <label class="gitem"><input type="radio" id="g9" name="level" value="grade9"> Grade 9</label>
+                <label class="gitem"><input type="radio" id="g8" name="level" value="grade8"> Grade 8</label>
+                <label class="gitem"><input type="radio" id="g7" name="level" value="grade7"> Grade 7</label>
+            </div>
+        </div>
+        <!--for preferences-->
+        <div class="gradegrid">
+            <div class="gcol">
+                <label class="gitem"><input type="checkbox" id="lesson1" name="preference" value="lesson1"> Lesson 1</label>
+                <label class="gitem"><input type="checkbox" id="lesson2" name="preference" value="lesson2"> Lesson 2</label>
+                <label class="gitem"><input type="checkbox" id="lesson3" name="preference" value="lesson3"> Lesson 3</label>
+            </div>
+            <div class="gcol">
+                <label class="gitem"><input type="checkbox" id="lesson4" name="preference" value="lesson4"> Lesson 4</label>
+                <label class="gitem"><input type="checkbox" id="lesson5" name="preference" value="lesson5"> Lesson 5</label>
+                <label class="gitem"><input type="checkbox" id="lesson6" name="preference" value="lesson6"> Lesson 6</label>
+            </div>
+            <div class="gcol">
+                <label class="gitem"><input type="checkbox" id="lesson7" name="preference" value="lesson7"> Lesson 7</label>
+                <label class="gitem"><input type="checkbox" id="lesson8" name="preference" value="lesson8"> Lesson 8</label>
+                <label class="gitem"><input type="checkbox" id="lesson9" name="preference" value="lesson9"> Lesson 9</label>
+            </div>
+        </div>
+        <input type="submit" class="subbot" value="Submit">
+    </form>
+</div>
+</body>
