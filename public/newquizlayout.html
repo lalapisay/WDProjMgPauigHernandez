@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WHAT THE SIGMAA!!">
+    <meta name="keywords" content="2Q, ChemPlay, Projects, I HATE CHEM">
+    <meta name="author" content="Lala Pauig, Enzo Hernandez">
+    
+    <title>Layout Quiz</title>
+    <link rel="stylesheet" href="/css files/stylesheet.css">
+    <link rel = "icon" href = "./assets/logo.png" type = "image/png">
+</head>
+
+<style>
+    body{
+        background-color:#ece9d7;
+    }
+    .container{
+        display: flex;
+        flex-direction: column;
+        margin: 50px 50px 50px 50px;
+        background-color: white;
+        padding: 20px;
+        border: 3px solid black;
+        text-align: center;
+    }
+    .grid{
+        display: flex;
+        gap: 2rem;
+        align-items: flex-start;
+        margin: 0.5rem 0 1rem 0;
+        justify-content: center;
+        align-items: center;
+    }
+    .column{
+        display: flex;
+        flex-direction: column;
+    }
+    .buttons{
+        border-radius: 20px;
+        padding: 10px 20px;
+        background-color: orange;
+        border: none;
+        margin-bottom: 50px;
+        width: 500px;
+        height: 60px;
+    }
+</style>
+
+<body>
+    <div class="topnav">
+        <img src="./assets/logo.png" alt="Logo" height="50px" width="50px">
+        <a class="active" href="./index.html">Home</a>
+        <a href="./public/2_GameDirectory.html">Games & Quizzes</a>
+        <h1>ChemPlay</h1>
+    </div><!--For the nav bar-->
+
+    <div class="navtop">
+        <h1>QUIZ LAYOUT</h1>
+    </div><!--For the purple thingy on top-->
+
+    <div class="container" id="question">
+        <h3>Question here</h3>
+    </div>
+
+    <div class="grid">
+        <div class="column">
+            <button class="buttons" id="option1">Option 1</button>
+            <button class="buttons" id="option2">Option 2</button>
+        </div>
+        <div class="column">
+            <button class="buttons" id="option3">Option 3</button>
+            <button class="buttons" id="option4">Option 4</button>
+        </div>
+
+    
