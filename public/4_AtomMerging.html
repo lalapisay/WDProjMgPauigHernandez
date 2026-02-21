@@ -503,9 +503,8 @@
       "CH2+O": "CH2O" // Formaldehyde
     };
 
-    // The state of the game
     const baseAtoms = ["H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne", "Na", "Mg", "Al", "Si", "P", "S", "Cl", "Ar", "K", "Ca", "Sc", "Ti", "V", "Cr", "Mn", "Fe", "Co", "Ni", "Cu", "Zn", "Ga", "Ge", "As", "Se", "Br", "Kr", "Rb", "Sr", "Y", "Zr", "Nb", "Mo", "Tc", "Ru", "Rh", "Pd", "Ag", "Cd", "In", "Sn", "Sb", "Te", "I", "Xe", "Cs", "Ba", "La", "Ce", "Pr", "Nd", "Pm", "Sm", "Eu", "Gd", "Tb", "Dy", "Ho", "Er", "Tm", "Yb", "Lu", "Hf", "Ta", "W", "Re", "Os", "Ir", "Pt", "Au", "Hg", "Tl", "Pb", "Bi", "Po", "At", "Rn", "Fr", "Ra", "Ac", "Th", "Pa", "U", "Np", "Pu", "Am", "Cm", "Bk", "Cf", "Es", "Fm", "Md", "No", "Lr", "Rf", "Db", "Sg", "Bh", "Hs", "Mt", "Ds", "Rg", "Cn", "Nh", "Fl", "Mc", "Lv", "Ts", "Og"]; // What shows at the bottom
-    let discoveredMolecules = []; // What shows on the left
+    let discoveredMolecules = []; 
 
     // --- 2. RENDER THE BOTTOM TRAY (Periodic Table) ---
     function renderPeriodicTable() {
@@ -522,8 +521,6 @@
           <div class="name">${data.name}</div>
         `;
         
-        // Spawn the atom slightly above the bottom tray
-        // Spawns perfectly in the middle of the workspace
         btn.onclick = () => spawnElement(id, workspace.clientWidth / 2, workspace.clientHeight / 2);
         tray.appendChild(btn);
       });
@@ -545,7 +542,7 @@
         div.className = "inventory-item";
         div.innerHTML = `${data.symbol} - ${data.name}`;
         
-        // Spawn molecule in the center of the workspace
+        
         div.onclick = () => spawnElement(id, workspace.clientWidth / 2, workspace.clientHeight / 2);
         
         list.appendChild(div);
@@ -565,7 +562,7 @@
       node.style.left = x + "px";
       node.style.top = y + "px";
       node.style.backgroundColor = data.color;
-      node.style.borderColor = data.color; // Match border to background
+      node.style.borderColor = data.color; 
       
       node.innerHTML = `
         <div class="symbol">${data.symbol}</div>
@@ -584,10 +581,8 @@
 
    document.onmousemove = (e) => {
       if (activeElement) {
-        // Get the exact position of the workspace on the screen
         let workspaceRect = workspace.getBoundingClientRect();
         
-        // Subtract the workspace's left and top offsets from the mouse position
         activeElement.style.left = (e.clientX - workspaceRect.left) + "px";
         activeElement.style.top = (e.clientY - workspaceRect.top) + "px";
       }
@@ -631,7 +626,6 @@
       let id1 = node1.dataset.id;
       let id2 = node2.dataset.id;
 
-      // Sort alphabetically so A+B is the same as B+A
       let combination = [id1, id2].sort().join("+");
 
       if (recipes[combination]) {
@@ -644,7 +638,6 @@
         let y = parseFloat(node1.style.top);
         spawnElement(resultId, x, y);
 
-        // Check if it's a new discovery AND make sure it's not just a base atom
         if (!discoveredMolecules.includes(resultId) && !baseAtoms.includes(resultId)) {
           discoveredMolecules.push(resultId);
           updateInventory();
@@ -652,7 +645,6 @@
       }
     }
 
-    // Start the game
     renderPeriodicTable();
     updateInventory();
 

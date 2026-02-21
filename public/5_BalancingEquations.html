@@ -196,10 +196,10 @@
     // --- 4. USER INTERFACE & GAME STATE ---
     let currentReaction = null;
     let score = 0;
-    let levelSolved = false; // Prevents getting multiple points for the same question
+    let levelSolved = false; 
 
     function loadNewLevel() {
-      levelSolved = false; // Reset for the new question
+      levelSolved = false; 
       document.getElementById("feedback-message").innerText = ""; 
       
       currentReaction = Math.random() > 0.5 ? generateSynthesis() : generateDoubleDisplacement();
@@ -223,7 +223,7 @@
     }
 
     function checkAnswer() {
-      if (levelSolved) return; // Stop if they already solved it
+      if (levelSolved) return; 
 
       let userCoeffs = { reactants: [], products: [] };
       let inputs = document.querySelectorAll('.coeff-input');
@@ -250,7 +250,6 @@
           feedback.innerText = "Correct! Great job!";
           feedback.style.color = "green";
           
-          // Increase score and lock the level!
           score++;
           document.getElementById("score-display").innerText = "Score: " + score;
           levelSolved = true; 
@@ -266,12 +265,10 @@
     const ctx = canvas.getContext('2d');
     let isDrawing = false;
 
-    // Set brush style
     ctx.lineWidth = 3;
     ctx.lineCap = "round";
     ctx.strokeStyle = "#333";
 
-    // Mouse events for drawing
     canvas.addEventListener('mousedown', (e) => {
       isDrawing = true;
       ctx.beginPath();
@@ -285,16 +282,13 @@
       }
     });
 
-    // Stop drawing when mouse goes up or leaves the canvas
     canvas.addEventListener('mouseup', () => isDrawing = false);
     canvas.addEventListener('mouseout', () => isDrawing = false);
 
-    // Clear board function
     function clearBoard() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    // Start game on load
     window.onload = loadNewLevel;
   </script>
 </body>
