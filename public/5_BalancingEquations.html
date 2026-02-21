@@ -11,15 +11,291 @@
     <link rel="stylesheet" href="../css files/stylesheet.css">
     <link rel = "icon" href = "../assets/logo.png" type = "image/png">
 
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+      background-color: #f4f4f9;
+    }
+    #game-container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      display: inline-block;
+    }
+    #equation-display {
+      font-size: 28px;
+      margin: 30px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .coeff-input {
+      width: 50px;
+      height: 35px;
+      font-size: 20px;
+      text-align: center;
+      margin: 0 5px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+    }
+    .formula {
+      font-weight: bold;
+      margin-right: 15px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 5px;
+      cursor: pointer;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #feedback-message {
+      margin-top: 20px;
+      height: 25px;
+    }
+</style>
 </head>
 
-<style>
 
+<body>
 
-</style>
+    <div id="game-container">
+    <div id="score-display">Score: 0</div>
+    <h2>Balance the Equation!</h2>
+    
+    <div id="equation-display"></div> 
+    
+    <div class="controls">
+      <button onclick="checkAnswer()">Check Answer</button>
+      <button onclick="loadNewLevel()">Next Question</button>
+    </div>
+    
+    <h3 id="feedback-message"></h3>
 
-<footer>
+    <div id="whiteboard-section">
+      <h3>Scratchpad</h3>
+      <canvas id="scratchpad" width="600" height="200"></canvas><br>
+      <button class="clear-btn" onclick="clearBoard()">Clear Board</button>
+    </div>
+  </div>
+  <footer>
       <h1>Copyright</h1>
 
-      <button type="button" onclick="location.href='./3_References.html'">Start now.</button>
+      <button type="button" onclick="location.href='./3_References.html'"></button>
     </footer>
+
+  <script>
+    // --- 1. THE DATA ---
+    const metals = [
+      { symbol: "Na", charge: 1 }, { symbol: "K",  charge: 1 },
+      { symbol: "Li", charge: 1 }, { symbol: "Ca", charge: 2 },
+      { symbol: "Mg", charge: 2 }, { symbol: "Al", charge: 3 },
+      { symbol: "Fe", charge: 2 }, { symbol: "Fe", charge: 3 },
+      { symbol: "Zn", charge: 2 }, { symbol: "Cu", charge: 1 },
+      { symbol: "Cu", charge: 2 }
+    ];
+
+    const nonMetals = [
+      { symbol: "F",  charge: -1 }, { symbol: "Cl", charge: -1 },
+      { symbol: "Br", charge: -1 }, { symbol: "I",  charge: -1 },
+      { symbol: "O",  charge: -2 }, { symbol: "S",  charge: -2 },
+      { symbol: "N",  charge: -3 }, { symbol: "P",  charge: -3 }
+    ];
+
+    const diatomics = ["H", "N", "O", "F", "Cl", "Br", "I"];
+
+    // --- 2. MATH & CORE LOGIC ---
+    function gcd(a, b) {
+      return b ? gcd(b, a % b) : a;
+    }
+
+    function generateIonicCompound(metal, nonMetal) {
+      let subM = Math.abs(nonMetal.charge);
+      let subN = metal.charge;
+
+      let factor = gcd(subM, subN);
+      subM /= factor;
+      subN /= factor;
+
+      let compoundObject = {
+        formula: "", 
+        atoms: { [metal.symbol]: subM, [nonMetal.symbol]: subN }
+      };
+
+      let formula = metal.symbol;
+      if (subM > 1) formula += subM;
+      formula += nonMetal.symbol;
+      if (subN > 1) formula += subN;
+      
+      compoundObject.formula = formula;
+      return compoundObject;
+    }
+
+    // --- 3. REACTION GENERATORS ---
+    function generateSynthesis() {
+      let m = metals[Math.floor(Math.random() * metals.length)];
+      let n = nonMetals[Math.floor(Math.random() * nonMetals.length)];
+      let isDiatomic = diatomics.includes(n.symbol);
+      
+      return {
+        reactants: [
+          { formula: m.symbol, atoms: { [m.symbol]: 1 } },
+          { formula: isDiatomic ? n.symbol + "2" : n.symbol, atoms: { [n.symbol]: isDiatomic ? 2 : 1 } }
+        ],
+        products: [ generateIonicCompound(m, n) ]
+      };
+    }
+
+    function generateDoubleDisplacement() {
+      let m1 = metals[Math.floor(Math.random() * metals.length)];
+      let m2 = metals[Math.floor(Math.random() * metals.length)];
+      let n1 = nonMetals[Math.floor(Math.random() * nonMetals.length)];
+      let n2 = nonMetals[Math.floor(Math.random() * nonMetals.length)];
+
+      if (m1.symbol === m2.symbol || n1.symbol === n2.symbol) return generateDoubleDisplacement();
+
+      return {
+        reactants: [ generateIonicCompound(m1, n1), generateIonicCompound(m2, n2) ],
+        products: [ generateIonicCompound(m1, n2), generateIonicCompound(m2, n1) ]
+      };
+    }
+
+    function isBalanced(reaction, coeffs) {
+      let leftSide = {};
+      let rightSide = {};
+
+      reaction.reactants.forEach((comp, i) => {
+        for (let symbol in comp.atoms) {
+          leftSide[symbol] = (leftSide[symbol] || 0) + (comp.atoms[symbol] * coeffs.reactants[i]);
+        }
+      });
+
+      reaction.products.forEach((comp, i) => {
+        for (let symbol in comp.atoms) {
+          rightSide[symbol] = (rightSide[symbol] || 0) + (comp.atoms[symbol] * coeffs.products[i]);
+        }
+      });
+
+      let hasRealNumbers = coeffs.reactants.some(c => c > 0);
+      if (!hasRealNumbers) return false;
+
+      return Object.keys(leftSide).length === Object.keys(rightSide).length && 
+             Object.keys(leftSide).every(symbol => leftSide[symbol] === rightSide[symbol]);
+    }
+
+    // --- 4. USER INTERFACE & GAME STATE ---
+    let currentReaction = null;
+    let score = 0;
+    let levelSolved = false; // Prevents getting multiple points for the same question
+
+    function loadNewLevel() {
+      levelSolved = false; // Reset for the new question
+      document.getElementById("feedback-message").innerText = ""; 
+      
+      currentReaction = Math.random() > 0.5 ? generateSynthesis() : generateDoubleDisplacement();
+      
+      const container = document.getElementById("equation-display");
+      
+      const buildHTML = (compounds, side) => {
+        return compounds.map(comp => {
+          let formattedFormula = comp.formula.replace(/(\d+)/g, "<sub>$1</sub>");
+          return `
+            <input type="number" min="1" class="coeff-input" data-side="${side}">
+            <span class="formula">${formattedFormula}</span>
+          `;
+        }).join('<span class="formula"> + </span>');
+      };
+
+      let leftSide = buildHTML(currentReaction.reactants, "reactants");
+      let rightSide = buildHTML(currentReaction.products, "products");
+
+      container.innerHTML = `${leftSide} <span class="formula"> &rarr; </span> ${rightSide}`;
+    }
+
+    function checkAnswer() {
+      if (levelSolved) return; // Stop if they already solved it
+
+      let userCoeffs = { reactants: [], products: [] };
+      let inputs = document.querySelectorAll('.coeff-input');
+      
+      inputs.forEach(input => {
+        let value = parseInt(input.value) || 1; 
+        if (input.dataset.side === "reactants") {
+          userCoeffs.reactants.push(value);
+        } else {
+          userCoeffs.products.push(value);
+        }
+      });
+
+      let feedback = document.getElementById("feedback-message");
+
+      if (isBalanced(currentReaction, userCoeffs)) {
+        let allUserNumbers = [...userCoeffs.reactants, ...userCoeffs.products];
+        let commonDivisor = allUserNumbers.reduce((a, b) => gcd(a, b));
+
+        if (commonDivisor > 1) {
+          feedback.innerText = "You have the right atoms, but you need to simplify your numbers to the lowest ratio!";
+          feedback.style.color = "#d97706"; 
+        } else {
+          feedback.innerText = "Correct! Great job!";
+          feedback.style.color = "green";
+          
+          // Increase score and lock the level!
+          score++;
+          document.getElementById("score-display").innerText = "Score: " + score;
+          levelSolved = true; 
+        }
+      } else {
+        feedback.innerText = "Not quite balanced. Count your atoms and try again!";
+        feedback.style.color = "red";
+      }
+    }
+
+    // --- 5. WHITEBOARD LOGIC ---
+    const canvas = document.getElementById('scratchpad');
+    const ctx = canvas.getContext('2d');
+    let isDrawing = false;
+
+    // Set brush style
+    ctx.lineWidth = 3;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = "#333";
+
+    // Mouse events for drawing
+    canvas.addEventListener('mousedown', (e) => {
+      isDrawing = true;
+      ctx.beginPath();
+      ctx.moveTo(e.offsetX, e.offsetY);
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+      if (isDrawing) {
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+      }
+    });
+
+    // Stop drawing when mouse goes up or leaves the canvas
+    canvas.addEventListener('mouseup', () => isDrawing = false);
+    canvas.addEventListener('mouseout', () => isDrawing = false);
+
+    // Clear board function
+    function clearBoard() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // Start game on load
+    window.onload = loadNewLevel;
+  </script>
+</body>
+</html>
