@@ -14,77 +14,648 @@
 </head>
 
 <style>
-.layout{
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-}
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background-color: #1e1e24;
+      color: white;
+      overflow: hidden;
+    }
 
-.leftleft{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
+    /* Top Section: Sidebar + Workspace */
+    #top-section {
+      display: flex;
+      flex-grow: 1;
+      height: calc(100vh - 150px); /* Leaves room for the bottom tray */
+    }
 
-.Mergingarea{
-    background-color: white;
-    border: 2px solid black; 
-    display: flex; 
-    flex-direction: column;
-}
+    /* Left Sidebar: Discovered Molecules Only */
+    #sidebar {
+      width: 250px;
+      background-color: #2b2b36;
+      border-right: 3px solid #444;
+      padding: 20px;
+      overflow-y: auto;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+      z-index: 10;
+    }
 
-.Periodictable{
-    background-color: white;
-    border: 2px solid black;  
-    display: flex; 
-    flex-direction: column;
-}
+    #sidebar h2 {
+      text-align: center;
+      margin-top: 0;
+      color: #e4c1f9;
+      border-bottom: 2px solid #444;
+      padding-bottom: 10px;
+    }
 
-.Mergedelements{
-    background-color: white;
-    border: 2px solid black;  
-    display: flex; 
-    flex-direction: column;}
-</style>
+    .inventory-item {
+      background: #3a3a48;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 18px;
+      transition: background 0.2s, transform 0.1s;
+      border: 2px solid transparent;
+    }
 
+    .inventory-item:hover {
+      background: #4a4a5a;
+      border-color: #e4c1f9;
+      transform: scale(1.05);
+    }
+
+    /* Right Area: The Workspace */
+    #workspace {
+      flex-grow: 1;
+      position: relative;
+      background-image: radial-gradient(#333 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+
+    /* Bottom Section: The Periodic Table Elements */
+    #bottom-tray {
+      height: 150px;
+      background-color: #1a1a20;
+      border-top: 3px solid #444;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      overflow-x: auto;
+      gap: 15px;
+      box-shadow: 0 -4px 10px rgba(0,0,0,0.5);
+      z-index: 10;
+    }
+
+    .atom-dispenser {
+      min-width: 80px;
+      height: 80px;
+      background: #333;
+      border: 3px solid #777;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.1s, border-color 0.2s;
+      user-select: none;
+    }
+
+    .atom-dispenser:hover {
+      transform: translateY(-5px);
+      border-color: #00d2ff;
+    }
+
+    .atom-dispenser .symbol {
+      font-size: 28px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .atom-dispenser .name {
+      font-size: 11px;
+      color: #aaa;
+    }
+
+    /* The Draggable Atoms/Molecules in the Workspace */
+    .element-node {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background-color: #fff;
+      color: #000;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: grab;
+      user-select: none;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      border: 4px solid #fff;
+      transform: translate(-50%, -50%);
+    }
+
+    .element-node:active {
+      cursor: grabbing;
+    }
+
+    .element-node .symbol {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .element-node .name {
+      font-size: 10px;
+      color: #333;
+    }
+
+    /* Trash Can */
+    #trash {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #dc3545;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      opacity: 0.7;
+      z-index: 5;
+    }
+    #trash:hover {
+      opacity: 1;
+    }
+  </style>
 <body>
+    <div class="topnav">
+        <img src="../assets/logo.png" alt="Logo" height="50px" width="50px">
+        <a class="active" href="../index.html">Home</a>
+        <a href="../public/2_GameDirectory.html">Games & Quizzes</a>
+        <h1>ChemPlay</h1>
+    </div><!--For the nav bar-->
+  <div id="top-section">
+    <div id="sidebar">
+      <h2>Compounds</h2>
+      <div id="inventory-list">
+        <div style="text-align: center; color: #777; margin-top: 20px;">Combine atoms to discover molecules!</div>
+      </div>
+    </div>
 
-<div class="topnav">
-<img src="../assets/logo.png" alt="Logo" height="50px" width="50px">
-<a class="active" href="../1_Home.html">Home</a>
-<a href="./2_GameDirectory.html">Games & Quizzes</a>
-<h1>ChemPlay</h1>
-</div> <!--Navigation bar-->
+    <div id="workspace">
+      <div id="trash" onclick="clearWorkspace()">🗑️ Clear Board</div>
+    </div>
+  </div>
 
-<div class="navtop">
-    <h1>ATOM MERGING</h1>
-</div><!--Name of activity/quiz-->
+  <div id="bottom-tray" id="periodic-table">
+    </div>
 
-<div class="layout">
-
-    <div class="leftleft">
-
-        <div class="Mergingarea">
-            <!--Note to Enzo: Send id name pls-->
-        <div id=""></div>
-        </div>
-
-        <div class="Periodictable">
-            <!--Note to Enzo: Send id name pls-->
-        <div id=""></div>
-        </div>
-
-    </div><!--End of leftleft class div-->
-
-    <div class="Mergedelements">
-        <!--Note to Enzo: send id name soon pls-->
-    <div id=""></div></div>
-</div><!--End of layout class div-->
-
-</body>
-
-<footer>
+    <footer>
       <h1>Copyright</h1>
 
       <button type="button" onclick="location.href='./3_References.html'">Start now.</button>
     </footer>
+
+  <script>
+    // --- 1. THE GAME DATA ---
+    const elementData = {
+      // Base Atoms (The Periodic Table)
+      "H": { symbol: "H", name: "Hydrogen", color: "#ffadad" },
+      "He": { symbol: "He", name: "Helium", color: "#ffadad" },
+      "Li": { symbol: "Li", name: "Lithium", color: "#ffadad" },
+      "Be": { symbol: "Be", name: "Beryllium", color: "#ffadad" },
+      "B": { symbol: "B", name: "Boron", color: "#ffadad" },
+      "C": { symbol: "C", name: "Carbon", color: "#bdb2ff" },
+      "N": { symbol: "N", name: "Nitrogen", color: "#caffbf" },
+      "O": { symbol: "O", name: "Oxygen", color: "#9bf6ff" },
+      "F": { symbol: "F", name: "Fluorine", color: "#ffadad" },
+      "Ne": { symbol: "Ne", name: "Neon", color: "#ffadad" },
+      "Na": { symbol: "Na", name: "Sodium", color: "#fdffb6" },
+      "Mg": { symbol: "Mg", name: "Magnesium", color: "#fdffb6" },
+      "Al": { symbol: "Al", name: "Aluminum", color: "#fdffb6" },
+      "Si": { symbol: "Si", name: "Silicon", color: "#fdffb6" },
+      "P": { symbol: "P", name: "Phosphorus", color: "#fdffb6" },
+      "S": { symbol: "S", name: "Sulfur", color: "#fdffb6" },
+      "Cl": { symbol: "Cl", name: "Chlorine", color: "#ffc6ff" },
+      "Ar": { symbol: "Ar", name: "Argon", color: "#ffc6ff" },
+      "K": { symbol: "K", name: "Potassium", color: "#ffc6ff" },
+      "Ca": { symbol: "Ca", name: "Calcium", color: "#ffc6ff" },
+      "Sc": { symbol: "Sc", name: "Scandium", color: "#ffc6ff" },
+      "Ti": { symbol: "Ti", name: "Titanium", color: "#ffc6ff" },
+      "V": { symbol: "V", name: "Vanadium", color: "#ffc6ff" },
+      "Cr": { symbol: "Cr", name: "Chromium", color: "#ffc6ff" },
+      "Mn": { symbol: "Mn", name: "Manganese", color: "#ffc6ff" },
+      "Fe": { symbol: "Fe", name: "Iron", color: "#ffc6ff" },
+      "Co": { symbol: "Co", name: "Cobalt", color: "#ffc6ff" },
+      "Ni": { symbol: "Ni", name: "Nickel", color: "#ffc6ff" },
+      "Cu": { symbol: "Cu", name: "Copper", color: "#ffc6ff" },
+      "Zn": { symbol: "Zn", name: "Zinc", color: "#ffc6ff" },
+      "Ga": { symbol: "Ga", name: "Gallium", color: "#ffc6ff" },
+      "Ge": { symbol: "Ge", name: "Germanium", color: "#ffc6ff" },
+      "As": { symbol: "As", name: "Arsenic", color: "#ffc6ff" },
+      "Se": { symbol: "Se", name: "Selenium", color: "#ffc6ff" },
+      "Br": { symbol: "Br", name: "Bromine", color: "#ffc6ff" },
+      "Kr": { symbol: "Kr", name: "Krypton", color: "#ffc6ff" },
+      "Rb": { symbol: "Rb", name: "Rubidium", color: "#ffc6ff" },
+      "Sr": { symbol: "Sr", name: "Strontium", color: "#ffc6ff" },
+      "Y": { symbol: "Y", name: "Yttrium", color: "#ffc6ff" },
+      "Zr": { symbol: "Zr", name: "Zirconium", color: "#ffc6ff" },
+      "Nb": { symbol: "Nb", name: "Niobium", color: "#ffc6ff" },
+      "Mo": { symbol: "Mo", name: "Molybdenum", color: "#ffc6ff" },
+      "Tc": { symbol: "Tc", name: "Technetium", color: "#ffc6ff" },
+      "Ru": { symbol: "Ru", name: "Ruthenium", color: "#ffc6ff" },
+      "Rh": { symbol: "Rh", name: "Rhodium", color: "#ffc6ff" },
+      "Pd": { symbol: "Pd", name: "Palladium", color: "#ffc6ff" },
+      "Ag": { symbol: "Ag", name: "Silver", color: "#ffc6ff" },
+      "Cd": { symbol: "Cd", name: "Cadmium", color: "#ffc6ff" },
+      "In": { symbol: "In", name: "Indium", color: "#ffc6ff" },
+      "Sn": { symbol: "Sn", name: "Tin", color: "#ffc6ff" },
+      "Sb": { symbol: "Sb", name: "Antimony", color: "#ffc6ff" },
+      "Te": { symbol: "Te", name: "Tellurium", color: "#ffc6ff" },
+      "I": { symbol: "I", name: "Iodine", color: "#ffc6ff" },
+      "Xe": { symbol: "Xe", name: "Xenon", color: "#ffc6ff" },
+      "Cs": { symbol: "Cs", name: "Cesium", color: "#ffc6ff" },
+      "Ba": { symbol: "Ba", name: "Barium", color: "#ffc6ff" },
+      "La": { symbol: "La", name: "Lanthanum", color: "#ffc6ff" },
+      "Ce": { symbol: "Ce", name: "Cerium", color: "#ffc6ff" },
+      "Pr": { symbol: "Pr", name: "Praseodymium", color: "#ffc6ff" },
+      "Nd": { symbol: "Nd", name: "Neodymium", color: "#ffc6ff" },
+      "Pm": { symbol: "Pm", name: "Promethium", color: "#ffc6ff" },
+      "Sm": { symbol: "Sm", name: "Samarium", color: "#ffc6ff" },
+      "Eu": { symbol: "Eu", name: "Europium", color: "#ffc6ff" },
+      "Gd": { symbol: "Gd", name: "Gadolinium", color: "#ffc6ff" },
+      "Tb": { symbol: "Tb", name: "Terbium", color: "#ffc6ff" },
+      "Dy": { symbol: "Dy", name: "Dysprosium", color: "#ffc6ff" },
+      "Ho": { symbol: "Ho", name: "Holmium", color: "#ffc6ff" },
+      "Er": { symbol: "Er", name: "Erbium", color: "#ffc6ff" },
+      "Tm": { symbol: "Tm", name: "Thulium", color: "#ffc6ff" },
+      "Yb": { symbol: "Yb", name: "Ytterbium", color: "#ffc6ff" },
+      "Lu": { symbol: "Lu", name: "Lutetium", color: "#ffc6ff" },
+      "Hf": { symbol: "Hf", name: "Hafnium", color: "#ffc6ff" },
+      "Ta": { symbol: "Ta", name: "Tantalum", color: "#ffc6ff" },
+      "W": { symbol: "W", name: "Tungsten", color: "#ffc6ff" },
+      "Re": { symbol: "Re", name: "Rhenium", color: "#ffc6ff" },
+      "Os": { symbol: "Os", name: "Osmium", color: "#ffc6ff" },
+      "Ir": { symbol: "Ir", name: "Iridium", color: "#ffc6ff" },
+      "Pt": { symbol: "Pt", name: "Platinum", color: "#ffc6ff" },
+      "Au": { symbol: "Au", name: "Gold", color: "#ffc6ff" },
+      "Hg": { symbol: "Hg", name: "Mercury", color: "#ffc6ff" },
+      "Tl": { symbol: "Tl", name: "Thallium", color: "#ffc6ff" },
+      "Pb": { symbol: "Pb", name: "Lead", color: "#ffc6ff" },
+      "Bi": { symbol: "Bi", name: "Bismuth", color: "#ffc6ff" },  
+      "Po": { symbol: "Po", name: "Polonium", color: "#ffc6ff" },
+      "At": { symbol: "At", name: "Astatine", color: "#ffc6ff" },
+      "Rn": { symbol: "Rn", name: "Radon", color: "#ffc6ff" },
+      "Fr": { symbol: "Fr", name: "Francium", color: "#ffc6ff" },
+      "Ra": { symbol: "Ra", name: "Radium", color: "#ffc6ff" },
+      "Ac": { symbol: "Ac", name: "Actinium", color: "#ffc6ff" },
+      "Th": { symbol: "Th", name: "Thorium", color: "#ffc6ff" },
+      "Pa": { symbol: "Pa", name: "Protactinium", color: "#ffc6ff" },
+      "U": { symbol: "U", name: "Uranium", color: "#ffc6ff" },
+      "Np": { symbol: "Np", name: "Neptunium", color: "#ffc6ff" },
+      "Pu": { symbol: "Pu", name: "Plutonium", color: "#ffc6ff" },
+      "Am": { symbol: "Am", name: "Americium", color: "#ffc6ff" },
+      "Cm": { symbol: "Cm", name: "Curium", color: "#ffc6ff" },
+      "Bk": { symbol: "Bk", name: "Berkelium", color: "#ffc6ff" },
+      "Cf": { symbol: "Cf", name: "Californium", color: "#ffc6ff" },
+      "Es": { symbol: "Es", name: "Einsteinium", color: "#ffc6ff" },
+      "Fm": { symbol: "Fm", name: "Fermium", color: "#ffc6ff" },
+      "Md": { symbol: "Md", name: "Mendelevium", color: "#ffc6ff" },
+      "No": { symbol: "No", name: "Nobelium", color: "#ffc6ff" },
+      "Lr": { symbol: "Lr", name: "Lawrencium", color: "#ffc6ff" },
+      "Rf": { symbol: "Rf", name: "Rutherfordium", color: "#ffc6ff" },
+      "Db": { symbol: "Db", name: "Dubnium", color: "#ffc6ff" },
+      "Sg": { symbol: "Sg", name: "Seaborgium", color: "#ffc6ff" },
+      "Bh": { symbol: "Bh", name: "Bohrium", color: "#ffc6ff" },
+      "Hs": { symbol: "Hs", name: "Hassium", color: "#ffc6ff" },
+      "Mt": { symbol: "Mt", name: "Meitnerium", color: "#ffc6ff" },
+      "Ds": { symbol: "Ds", name: "Darmstadtium", color: "#ffc6ff" },
+      "Rg": { symbol: "Rg", name: "Roentgenium", color: "#ffc6ff" },
+      "Cn": { symbol: "Cn", name: "Copernicium", color: "#ffc6ff" },
+      "Nh": { symbol: "Nh", name: "Nihonium", color: "#ffc6ff" },
+      "Fl": { symbol: "Fl", name: "Flerovium", color: "#ffc6ff" },
+      "Mc": { symbol: "Mc", name: "Moscovium", color: "#ffc6ff" },
+      "Lv": { symbol: "Lv", name: "Livermorium", color: "#ffc6ff" },
+      "Ts": { symbol: "Ts", name: "Tennessine", color: "#ffc6ff" },
+      "Og": { symbol: "Og", name: "Oganesson", color: "#ffc6ff" },
+      
+      // Molecules (The Discoveries)
+      "H2": { symbol: "H₂", name: "Hydrogen Gas", color: "#ffadad" },
+      "O2": { symbol: "O₂", name: "Oxygen Gas", color: "#9bf6ff" },
+      "H2O": { symbol: "H₂O", name: "Water", color: "#8eecf5" },
+      "CO": { symbol: "CO", name: "Carbon Monoxide", color: "#e4c1f9" },
+      "CO2": { symbol: "CO₂", name: "Carbon Dioxide", color: "#d0a3f7" },
+      "NaCl": { symbol: "NaCl", name: "Salt", color: "#fffffc" },
+      "NH3": { symbol: "NH₃", name: "Ammonia", color: "#caffbf" },
+      "Saltwater": { symbol: "💧🧂", name: "Saltwater", color: "#a2d2ff" },
+      // --- GASES & DIATOMICS ---
+      "N2": { symbol: "N₂", name: "Nitrogen Gas", color: "#caffbf" },
+      "Cl2": { symbol: "Cl₂", name: "Chlorine Gas", color: "#d8f8e1" },
+      "F2": { symbol: "F₂", name: "Fluorine Gas", color: "#fcf6bd" },
+      "O3": { symbol: "O₃", name: "Ozone", color: "#90e0ef" },
+      "N2O": { symbol: "N₂O", name: "Laughing Gas", color: "#ffc6ff" },
+      "SO2": { symbol: "SO₂", name: "Sulfur Dioxide", color: "#ffd6a5" },
+      "SO3": { symbol: "SO₃", name: "Sulfur Trioxide", color: "#fdffb6" },
+
+      // --- ACIDS & BASES ---
+      "HCl": { symbol: "HCl", name: "Hydrochloric Acid", color: "#ffadad" },
+      "NaOH": { symbol: "NaOH", name: "Sodium Hydroxide (Lye)", color: "#caffbf" },
+      "H2SO4": { symbol: "H₂SO₄", name: "Sulfuric Acid", color: "#ff99c8" },
+      "H2CO3": { symbol: "H₂CO₃", name: "Carbonic Acid", color: "#a0c4ff" },
+
+      // --- EVERYDAY COMPOUNDS ---
+      "H2O2": { symbol: "H₂O₂", name: "Hydrogen Peroxide", color: "#caf0f8" },
+      "SiO2": { symbol: "SiO₂", name: "Glass / Quartz", color: "#e4c1f9" },
+      "Fe2O3": { symbol: "Fe₂O₃", name: "Rust", color: "#e07a5f" },
+      "FeS2": { symbol: "FeS₂", name: "Pyrite (Fool's Gold)", color: "#ffd166" },
+      "NaHCO3": { symbol: "NaHCO₃", name: "Baking Soda", color: "#fdffb6" },
+      "NaOCl": { symbol: "NaOCl", name: "Bleach", color: "#f8edeb" },
+
+      // --- ORGANICS & HYDROCARBONS ---
+      "CH2": { symbol: "CH₂", name: "Methylene (Reactive)", color: "#e5e5e5" },
+      "CH4": { symbol: "CH₄", name: "Methane", color: "#bdb2ff" },
+      "C2H4": { symbol: "C₂H₄", name: "Ethylene", color: "#ffc6ff" },
+      "C2H5OH": { symbol: "C₂H₅OH", name: "Ethanol (Alcohol)", color: "#a2d2ff" },
+
+      // --- INTERMEDIATES (The Building Blocks) ---
+      "OH": { symbol: "OH⁻", name: "Hydroxyl", color: "#e2ece9" },
+      "CH": { symbol: "CH", name: "Carbon-Hydrogen Bond", color: "#dee2e6" },
+      "CH2": { symbol: "CH₂", name: "Methylene", color: "#ced4da" },
+      "CH3": { symbol: "CH₃", name: "Methyl", color: "#adb5bd" },
+      "C2": { symbol: "C₂", name: "Dicarbon", color: "#6c757d" },
+      "CN": { symbol: "CN⁻", name: "Cyanide", color: "#495057" },
+      "NO": { symbol: "NO", name: "Nitric Oxide", color: "#ffb3c6" },
+      "NO2": { symbol: "NO₂", name: "Nitrogen Dioxide", color: "#ff8fab" },
+      "SO": { symbol: "SO", name: "Sulfur Monoxide", color: "#ffe5d9" },
+      "PO": { symbol: "PO", name: "Phosphorus Monoxide", color: "#d8e2dc" },
+      "PO4": { symbol: "PO₄", name: "Phosphate", color: "#bde0fe" },
+
+      // --- PURE GASES & NON-METALS ---
+      "H2": { symbol: "H₂", name: "Hydrogen Gas", color: "#a0c4ff" },
+      "O2": { symbol: "O₂", name: "Oxygen Gas", color: "#9bf6ff" },
+      "N2": { symbol: "N₂", name: "Nitrogen Gas", color: "#caffbf" },
+      "Cl2": { symbol: "Cl₂", name: "Chlorine Gas", color: "#d8f8e1" },
+      "F2": { symbol: "F₂", name: "Fluorine Gas", color: "#fcf6bd" },
+      "Br2": { symbol: "Br₂", name: "Bromine Liquid", color: "#e07a5f" },
+      "I2": { symbol: "I₂", name: "Iodine Solid", color: "#7209b7" },
+      "O3": { symbol: "O₃", name: "Ozone", color: "#90e0ef" },
+
+      // --- ACIDS & BASES ---
+      "HCl": { symbol: "HCl", name: "Hydrochloric Acid", color: "#ffadad" },
+      "HF": { symbol: "HF", name: "Hydrofluoric Acid", color: "#ffc6ff" },
+      "HBr": { symbol: "HBr", name: "Hydrobromic Acid", color: "#ffb5a7" },
+      "HNO3": { symbol: "HNO₃", name: "Nitric Acid", color: "#fcd5ce" },
+      "H2SO4": { symbol: "H₂SO₄", name: "Sulfuric Acid", color: "#ff99c8" },
+      "NaOH": { symbol: "NaOH", name: "Sodium Hydroxide (Lye)", color: "#caffbf" },
+      "KOH": { symbol: "KOH", name: "Potassium Hydroxide", color: "#e4c1f9" },
+      "CaOH2": { symbol: "Ca(OH)₂", name: "Slaked Lime", color: "#f8edeb" },
+      "NH3": { symbol: "NH₃", name: "Ammonia", color: "#99d98c" },
+
+      // --- MINERALS, SALTS, & CRYSTALS ---
+      "KCl": { symbol: "KCl", name: "Potassium Chloride", color: "#f8f9fa" },
+      "KI": { symbol: "KI", name: "Potassium Iodide", color: "#e0aaff" },
+      "NaF": { symbol: "NaF", name: "Sodium Fluoride", color: "#caf0f8" },
+      "AgCl": { symbol: "AgCl", name: "Silver Chloride", color: "#e9ecef" },
+      "CaO": { symbol: "CaO", name: "Quicklime", color: "#fae1dd" },
+      "MgO": { symbol: "MgO", name: "Magnesia", color: "#fefae0" },
+      "Al2O3": { symbol: "Al₂O₃", name: "Alumina (Sapphire Base)", color: "#a2d2ff" },
+      "SiO2": { symbol: "SiO₂", name: "Quartz / Glass", color: "#e4c1f9" },
+      "Fe2O3": { symbol: "Fe₂O₃", name: "Rust", color: "#e07a5f" },
+      "FeS2": { symbol: "FeS₂", name: "Pyrite (Fool's Gold)", color: "#ffd166" },
+      "CuSO4": { symbol: "CuSO₄", name: "Copper Sulfate", color: "#0077b6" },
+
+      // --- ALLOYS (Metals combined with Metals/Carbon) ---
+      "Steel": { symbol: "Steel", name: "Steel", color: "#adb5bd" },
+      "Brass": { symbol: "Brass", name: "Brass", color: "#ffb703" },
+      "Bronze": { symbol: "Bronze", name: "Bronze", color: "#cd7f32" },
+      "Electrum": { symbol: "Electrum", name: "Electrum", color: "#ffe66d" },
+      "RoseGold": { symbol: "RoseGold", name: "Rose Gold", color: "#ffb5a7" },
+
+      // --- ORGANIC CHEMISTRY (The Hydrocarbons) ---
+      "CH4": { symbol: "CH₄", name: "Methane", color: "#bdb2ff" },
+      "C2H6": { symbol: "C₂H₆", name: "Ethane", color: "#a2d2ff" },
+      "C3H8": { symbol: "C₃H₈", name: "Propane", color: "#ffc6ff" },
+      "C4H10": { symbol: "C₄H₁₀", name: "Butane", color: "#ffadad" },
+      "C2H4": { symbol: "C₂H₄", name: "Ethylene (Plastic Base)", color: "#caffbf" },
+      "C2H2": { symbol: "C₂H₂", name: "Acetylene (Welding Gas)", color: "#ffd6a5" },
+      "CH3OH": { symbol: "CH₃OH", name: "Methanol (Wood Alcohol)", color: "#9bf6ff" },
+      "C2H5OH": { symbol: "C₂H₅OH", name: "Ethanol (Drinking Alcohol)", color: "#8eecf5" },
+      "CH2O": { symbol: "CH₂O", name: "Formaldehyde", color: "#e5e5e5" },
+      "HCN": { symbol: "HCN", name: "Hydrogen Cyanide", color: "#ef233c" },
+
+      // --- EVERYDAY ITEMS ---
+      "H2O2": { symbol: "H₂O₂", name: "Hydrogen Peroxide", color: "#caf0f8" },
+      "NaHCO3": { symbol: "NaHCO₃", name: "Baking Soda", color: "#fdffb6" },
+      "NaOCl": { symbol: "NaOCl", name: "Bleach", color: "#f8edeb" },
+      "N2O": { symbol: "N₂O", name: "Laughing Gas", color: "#ffc6ff" },
+      "CO2": { symbol: "CO₂", name: "Carbon Dioxide", color: "#d0a3f7" },
+      "CO": { symbol: "CO", name: "Carbon Monoxide", color: "#e4c1f9" }
+    };
+
+    // The recipes (Must be alphabetical! e.g., "Cl+Na" not "Na+Cl")
+    const recipes = {
+      // Elemental Gases
+      "H+H": "H2", "O+O": "O2", "N+N": "N2",
+      "Cl+Cl": "Cl2", "F+F": "F2", "Br+Br": "Br2", "I+I": "I2",
+      "O+O2": "O3",
+
+      // Intermediates (The Crafting Blocks)
+      "H+O": "OH",
+      "C+H": "CH", "CH+H": "CH2", "CH2+H": "CH3",
+      "C+C": "C2",
+      "C+N": "CN",
+      "N+O": "NO", "NO+O": "NO2",
+      "O+S": "SO", "O+SO": "SO2", "O+SO2": "SO3",
+      "O+P": "PO", "O+PO": "PO2", "O+PO2": "PO3", "O+PO3": "PO4",
+
+      // Oxides
+      "Ca+O": "CaO",
+      "Mg+O": "MgO",
+      "C+O": "CO", "CO+O": "CO2",
+      "H2+O": "H2O", "H2O+O": "H2O2",
+      "Fe+O": "FeO", "FeO+O2": "Fe2O3", // Simplified Rust
+      "Al+O": "AlO", "AlO+O": "AlO2", "AlO2+Al": "Al2O3", // Simplified Alumina
+      "O2+Si": "SiO2",
+
+      // Acids
+      "Cl+H": "HCl",
+      "F+H": "HF",
+      "Br+H": "HBr",
+      "H+NO3": "HNO3", // If you build NO3 first!
+      "H2O+SO3": "H2SO4",
+      "H+CN": "HCN",
+
+      // Bases
+      "Na+OH": "NaOH",
+      "K+OH": "KOH",
+      "Ca+OH": "CaOH", "CaOH+OH": "CaOH2",
+      "H+N": "NH", "H+NH": "NH2", "H+NH2": "NH3",
+
+      // Salts & Minerals
+      "Cl+Na": "NaCl",
+      "Cl+K": "KCl",
+      "I+K": "KI",
+      "F+Na": "NaF",
+      "Ag+Cl": "AgCl", // Ag comes before Cl
+      "Fe+S": "FeS", "FeS+S": "FeS2", // Pyrite
+      "Cu+SO4": "CuSO4", // If you make SO4!
+      "NaOH+CO2": "NaHCO3",
+      "Cl2+NaOH": "NaOCl",
+
+      // Alloys
+      "C+Fe": "Steel",
+      "Cu+Zn": "Brass",
+      "Cu+Sn": "Bronze",
+      "Ag+Au": "Electrum",
+      "Au+Cu": "RoseGold",
+
+      // Organic Chains
+      "CH3+H": "CH4", // Methane
+      "CH3+CH3": "C2H6", // Ethane
+      "CH3+C2H5": "C3H8", // Propane (Need C2H5 block)
+      "CH2+CH2": "C2H4", // Ethylene
+      "CH+CH": "C2H2", // Acetylene
+      "CH3+OH": "CH3OH", // Methanol
+      "CH3+CH2": "C2H5", // Ethyl radical
+      "C2H5+OH": "C2H5OH", // Ethanol
+      "CH2+O": "CH2O" // Formaldehyde
+    };
+
+    const baseAtoms = ["H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne", "Na", "Mg", "Al", "Si", "P", "S", "Cl", "Ar", "K", "Ca", "Sc", "Ti", "V", "Cr", "Mn", "Fe", "Co", "Ni", "Cu", "Zn", "Ga", "Ge", "As", "Se", "Br", "Kr", "Rb", "Sr", "Y", "Zr", "Nb", "Mo", "Tc", "Ru", "Rh", "Pd", "Ag", "Cd", "In", "Sn", "Sb", "Te", "I", "Xe", "Cs", "Ba", "La", "Ce", "Pr", "Nd", "Pm", "Sm", "Eu", "Gd", "Tb", "Dy", "Ho", "Er", "Tm", "Yb", "Lu", "Hf", "Ta", "W", "Re", "Os", "Ir", "Pt", "Au", "Hg", "Tl", "Pb", "Bi", "Po", "At", "Rn", "Fr", "Ra", "Ac", "Th", "Pa", "U", "Np", "Pu", "Am", "Cm", "Bk", "Cf", "Es", "Fm", "Md", "No", "Lr", "Rf", "Db", "Sg", "Bh", "Hs", "Mt", "Ds", "Rg", "Cn", "Nh", "Fl", "Mc", "Lv", "Ts", "Og"]; // What shows at the bottom
+    let discoveredMolecules = []; 
+
+    // --- 2. RENDER THE BOTTOM TRAY (Periodic Table) ---
+    function renderPeriodicTable() {
+      const tray = document.getElementById("bottom-tray");
+      
+      baseAtoms.forEach(id => {
+        let data = elementData[id];
+        let btn = document.createElement("div");
+        btn.className = "atom-dispenser";
+        btn.style.borderColor = data.color;
+        
+        btn.innerHTML = `
+          <div class="symbol">${data.symbol}</div>
+          <div class="name">${data.name}</div>
+        `;
+        
+        btn.onclick = () => spawnElement(id, workspace.clientWidth / 2, workspace.clientHeight / 2);
+        tray.appendChild(btn);
+      });
+    }
+
+    // --- 3. RENDER THE LEFT SIDEBAR (Molecules) ---
+    function updateInventory() {
+      const list = document.getElementById("inventory-list");
+      list.innerHTML = ""; 
+      
+      if (discoveredMolecules.length === 0) {
+        list.innerHTML = `<div style="text-align: center; color: #777; margin-top: 20px;">Combine atoms to discover molecules!</div>`;
+        return;
+      }
+
+      discoveredMolecules.forEach(id => {
+        let data = elementData[id];
+        let div = document.createElement("div");
+        div.className = "inventory-item";
+        div.innerHTML = `${data.symbol} - ${data.name}`;
+        
+        
+        div.onclick = () => spawnElement(id, workspace.clientWidth / 2, workspace.clientHeight / 2);
+        
+        list.appendChild(div);
+      });
+    }
+
+    // --- 4. WORKSPACE & DRAG LOGIC ---
+    const workspace = document.getElementById("workspace");
+    let activeElement = null;
+
+    function spawnElement(id, x, y) {
+      let data = elementData[id];
+      let node = document.createElement("div");
+      
+      node.className = "element-node";
+      node.dataset.id = id; 
+      node.style.left = x + "px";
+      node.style.top = y + "px";
+      node.style.backgroundColor = data.color;
+      node.style.borderColor = data.color; 
+      
+      node.innerHTML = `
+        <div class="symbol">${data.symbol}</div>
+        <div class="name">${data.name}</div>
+      `;
+
+      node.onmousedown = (e) => {
+        activeElement = node;
+        node.style.zIndex = 100;
+      };
+
+      node.ondblclick = () => node.remove();
+
+      workspace.appendChild(node);
+    }
+
+   document.onmousemove = (e) => {
+      if (activeElement) {
+        let workspaceRect = workspace.getBoundingClientRect();
+        
+        activeElement.style.left = (e.clientX - workspaceRect.left) + "px";
+        activeElement.style.top = (e.clientY - workspaceRect.top) + "px";
+      }
+    };
+
+    document.onmouseup = (e) => {
+      if (!activeElement) return;
+      activeElement.style.zIndex = 1; 
+      checkCollisions(activeElement);
+      activeElement = null; 
+    };
+
+    function clearWorkspace() {
+      document.querySelectorAll(".element-node").forEach(node => node.remove());
+    }
+
+    // --- 5. MERGING LOGIC ---
+    function checkCollisions(draggedNode) {
+      let nodes = document.querySelectorAll(".element-node");
+      let rect1 = draggedNode.getBoundingClientRect();
+
+      for (let targetNode of nodes) {
+        if (targetNode === draggedNode) continue; 
+
+        let rect2 = targetNode.getBoundingClientRect();
+        let isOverlapping = !(
+          rect1.right < rect2.left || 
+          rect1.left > rect2.right || 
+          rect1.bottom < rect2.top || 
+          rect1.top > rect2.bottom
+        );
+
+        if (isOverlapping) {
+          attemptMerge(draggedNode, targetNode);
+          break; 
+        }
+      }
+    }
+
+    function attemptMerge(node1, node2) {
+      let id1 = node1.dataset.id;
+      let id2 = node2.dataset.id;
+
+      let combination = [id1, id2].sort().join("+");
+
+      if (recipes[combination]) {
+        let resultId = recipes[combination];
+        
+        node1.remove();
+        node2.remove();
+
+        let x = parseFloat(node1.style.left);
+        let y = parseFloat(node1.style.top);
+        spawnElement(resultId, x, y);
+
+        if (!discoveredMolecules.includes(resultId) && !baseAtoms.includes(resultId)) {
+          discoveredMolecules.push(resultId);
+          updateInventory();
+        }
+      }
+    }
+
+    renderPeriodicTable();
+    updateInventory();
+
+  </script>
+</body>
+
+
+
+</html>

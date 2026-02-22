@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WHAT THE SIGMAA!!">
+    <meta name="keywords" content="2Q, ChemPlay, Projects, I HATE CHEM">
+    <meta name="author" content="Lala Pauig, Enzo Hernandez">
+    
+    <title>Game Directory</title>
+    <link rel="stylesheet" href="../css files/stylesheet.css">
+    <link rel = "icon" href = "../assets/logo.png" type = "image/png">
+
+    <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #1a1a24;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    #hud {
+      background: #2b2b36;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid #444;
+      z-index: 10;
+    }
+
+    .electron-counter {
+      font-size: 20px;
+      font-weight: bold;
+      color: #00d2ff;
+    }
+
+    .controls button {
+      padding: 8px 15px;
+      background: #444;
+      color: white;
+      border: 2px solid #666;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-left: 10px;
+    }
+    
+    .controls button.active {
+      background: #00d2ff;
+      color: black;
+      border-color: #00d2ff;
+    }
+
+    #feedback {
+      font-size: 18px;
+      font-weight: bold;
+      color: #ffadad;
+    }
+
+    #workspace {
+      flex-grow: 1;
+      position: relative;
+      background-image: radial-gradient(#333 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    #bond-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none; 
+    }
+
+    .atom {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background-color: #333;
+      border: 3px solid white;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: grab;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      z-index: 5;
+    }
+
+    .atom:active { cursor: grabbing; }
+    
+    .atom .symbol {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .atom .lone-pairs {
+      font-size: 12px;
+      color: #ffc6ff;
+      margin-top: -5px;
+    }
+
+    .bond-label {
+      position: absolute;
+      background: #2b2b36;
+      padding: 2px 5px;
+      border-radius: 5px;
+      font-size: 12px;
+      color: #00d2ff;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topnav">
+        <img src="../assets/logo.png" alt="Logo" height="50px" width="50px">
+        <a class="active" href="../index.html">Home</a>
+        <a href="../public/2_GameDirectory.html">Games & Quizzes</a>
+        <h1>ChemPlay</h1>
+    </div><!--For the nav bar-->
+
+  <div id="hud">
+    <div>
+      <h2 style="margin: 0;" id="level-title">Level 1: H₂O</h2>
+      <div id="feedback">Draw bonds to connect the atoms!</div>
+    </div>
+    
+    <div class="electron-counter">
+      Valence Electrons Used: <span id="used-e">0</span> / <span id="total-e">8</span>
+    </div>
+
+    <div class="controls">
+      <button id="btn-drag" class="active" onclick="setMode('drag')">Move Atoms</button>
+      <button id="btn-bond" onclick="setMode('bond')">Draw Bonds</button>
+      <button id="btn-lone" onclick="setMode('lone')">Add Lone Pairs (+2)</button>
+      
+      <button style="background: #dc3545; border-color: #dc3545;" onclick="clearBoard()">Clear Bonds</button>
+      
+      <button style="background: #28a745; border-color: #28a745;" onclick="checkWin()">Check Answer</button>
+    </div>
+  </div>
+
+  <div id="workspace">
+    <svg id="bond-layer"></svg>
+    </div>
+
+  <script>
+    // --- 1. GAME DATA ---
+    const elementData = {
+      "H": { symbol: "H", valence: 1, target: 2, color: "#a0c4ff" },
+      "C": { symbol: "C", valence: 4, target: 8, color: "#bdb2ff" },
+      "N": { symbol: "N", valence: 5, target: 8, color: "#caffbf" },
+      "O": { symbol: "O", valence: 6, target: 8, color: "#ffadad" },
+      "F": { symbol: "F", valence: 7, target: 8, color: "#fcf6bd" },
+      "Cl": { symbol: "Cl", valence: 7, target: 8, color: "#d8f8e1" }
+    };
+
+    const levels = [
+      // Levels 1-3: Single Bonds & Basics
+      { name: "Hydrogen Gas (H₂)", formula: ["H", "H"], totalValence: 2 },
+      { name: "Water (H₂O)", formula: ["H", "O", "H"], totalValence: 8 },
+      { name: "Methane (CH₄)", formula: ["H", "H", "C", "H", "H"], totalValence: 8 },
+      
+      // Levels 4-6: Lone Pairs & Double Bonds
+      { name: "Ammonia (NH₃)", formula: ["H", "N", "H", "H"], totalValence: 8 },
+      { name: "Formaldehyde (CH₂O)", formula: ["H", "C", "O", "H"], totalValence: 12 },
+      { name: "Carbon Dioxide (CO₂)", formula: ["O", "C", "O"], totalValence: 16 },
+
+      // Levels 7-8: Triple Bonds
+      { name: "Nitrogen Gas (N₂)", formula: ["N", "N"], totalValence: 10 },
+      { name: "Hydrogen Cyanide (HCN)", formula: ["H", "C", "N"], totalValence: 10 },
+
+      // Levels 9-10: Complex Spatial Puzzles
+      { name: "Acetylene (C₂H₂)", formula: ["H", "C", "C", "H"], totalValence: 10 },
+      { name: "Carbon Tetrachloride (CCl₄)", formula: ["Cl", "Cl", "C", "Cl", "Cl"], totalValence: 32 }
+    ];
+
+    // --- 2. GAME STATE ---
+    let currentLevel = 0;
+    let atoms = []; 
+    let bonds = []; 
+    let mode = 'drag';
+    
+    let activeAtom = null; 
+    let selectedForBond = null;
+
+    // --- 3. INITIALIZATION ---
+    function loadLevel(index) {
+      atoms = [];
+      bonds = [];
+      document.getElementById('workspace').innerHTML = '<svg id="bond-layer"></svg>';
+      
+      let level = levels[index];
+      document.getElementById('level-title').innerText = `Level ${index + 1}: ${level.name}`;
+      document.getElementById('total-e').innerText = level.totalValence;
+     
+      let startX = window.innerWidth / 2 - (level.formula.length * 50);
+      let y = window.innerHeight / 2;
+
+      level.formula.forEach((sym, i) => {
+        createAtom(sym, startX + (i * 120), y, i);
+      });
+
+      updateDisplay();
+    }
+
+    // --- 4. ATOM CREATION & INTERACTION ---
+    function createAtom(symbol, x, y, id) {
+      let data = elementData[symbol];
+      let node = document.createElement('div');
+      node.className = 'atom';
+      node.style.left = x + 'px';
+      node.style.top = y + 'px';
+      node.style.borderColor = data.color;
+      
+      node.innerHTML = `
+        <div class="symbol">${symbol}</div>
+        <div class="lone-pairs">0e⁻</div>
+      `;
+
+      let atomObj = { id, symbol, x, y, lonePairs: 0, node };
+      atoms.push(atomObj);
+
+      node.onmousedown = (e) => {
+        if (mode === 'drag') {
+          activeAtom = atomObj;
+          node.style.zIndex = 100;
+        } 
+        else if (mode === 'bond') {
+          handleBondClick(atomObj);
+        }
+        else if (mode === 'lone') {
+          atomObj.lonePairs = (atomObj.lonePairs + 2) % 8; 
+          if (atomObj.symbol === "H") atomObj.lonePairs = 0; 
+          updateDisplay();
+        }
+      };
+
+      document.getElementById('workspace').appendChild(node);
+    }
+
+    // --- 5. DRAG LOGIC ---
+    document.onmousemove = (e) => {
+      if (activeAtom && mode === 'drag') {
+        let workspaceRect = document.getElementById('workspace').getBoundingClientRect();
+        activeAtom.x = e.clientX - workspaceRect.left;
+        activeAtom.y = e.clientY - workspaceRect.top;
+        activeAtom.node.style.left = activeAtom.x + "px";
+        activeAtom.node.style.top = activeAtom.y + "px";
+        drawBonds(); 
+      }
+    };
+
+    document.onmouseup = () => {
+      if (activeAtom) activeAtom.node.style.zIndex = 5;
+      activeAtom = null;
+    };
+
+    // --- 6. BOND LOGIC ---
+    function handleBondClick(atom) {
+      if (!selectedForBond) {
+        
+        selectedForBond = atom;
+        atom.node.style.backgroundColor = "#555"; 
+      } else {
+        
+        if (selectedForBond.id !== atom.id) {
+          let existingBond = bonds.find(b => 
+            (b.id1 === selectedForBond.id && b.id2 === atom.id) || 
+            (b.id1 === atom.id && b.id2 === selectedForBond.id)
+          );
+
+          if (existingBond) {
+        
+            existingBond.order++;
+            if (existingBond.order > 3) {
+              bonds = bonds.filter(b => b !== existingBond);
+            }
+          } else {
+           
+            bonds.push({ id1: selectedForBond.id, id2: atom.id, order: 1 });
+          }
+        }
+    
+        selectedForBond.node.style.backgroundColor = "#333";
+        selectedForBond = null;
+        updateDisplay();
+      }
+    }
+
+    // --- 7. RENDERING & MATH ---
+    function updateDisplay() {
+      let usedElectrons = 0;
+
+      atoms.forEach(a => {
+        a.node.querySelector('.lone-pairs').innerText = a.lonePairs > 0 ? `${a.lonePairs}e⁻` : '';
+        usedElectrons += a.lonePairs;
+      });
+
+      bonds.forEach(b => {
+        usedElectrons += (b.order * 2);
+      });
+
+      document.getElementById('used-e').innerText = usedElectrons;
+      drawBonds();
+    }
+
+    function drawBonds() {
+      let svg = document.getElementById('bond-layer');
+      svg.innerHTML = ''; 
+
+      document.querySelectorAll('.bond-label').forEach(el => el.remove());
+
+      bonds.forEach(bond => {
+        let a1 = atoms.find(a => a.id === bond.id1);
+        let a2 = atoms.find(a => a.id === bond.id2);
+        
+        let line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', a1.x);
+        line.setAttribute('y1', a1.y);
+        line.setAttribute('x2', a2.x);
+        line.setAttribute('y2', a2.y);
+
+        line.setAttribute('stroke', '#fff');
+        line.setAttribute('stroke-width', bond.order * 4); 
+        svg.appendChild(line);
+
+        let label = document.createElement('div');
+        label.className = 'bond-label';
+        label.style.left = ((a1.x + a2.x) / 2) + 'px';
+        label.style.top = ((a1.y + a2.y) / 2) + 'px';
+        label.innerText = bond.order === 1 ? "Single" : bond.order === 2 ? "Double" : "Triple";
+        document.getElementById('workspace').appendChild(label);
+      });
+    }
+
+    // --- 8. WIN CONDITION LOGIC ---
+    function checkWin() {
+      let level = levels[currentLevel];
+      let feedback = document.getElementById('feedback');
+      
+      let usedE = parseInt(document.getElementById('used-e').innerText);
+      if (usedE !== level.totalValence) {
+        feedback.innerText = `Math error! You used ${usedE} electrons, but this molecule requires ${level.totalValence}.`;
+        feedback.style.color = "#ffadad";
+        return;
+      }
+
+      let allHappy = true;
+      atoms.forEach(atom => {
+        let data = elementData[atom.symbol];
+        let currentE = atom.lonePairs;
+
+        bonds.forEach(b => {
+          if (b.id1 === atom.id || b.id2 === atom.id) currentE += (b.order * 2);
+        });
+
+        if (currentE !== data.target) {
+          allHappy = false;
+        }
+      });
+
+      if (!allHappy) {
+        feedback.innerText = "Check your atoms! Some don't have a full octet (8), or Hydrogen doesn't have exactly 2.";
+        feedback.style.color = "#ffd6a5";
+        return;
+      }
+
+      feedback.innerText = "Perfect Structure! The Octet is satisfied.";
+      feedback.style.color = "#caffbf";
+      
+      if (currentLevel < levels.length - 1) {
+        setTimeout(() => {
+          currentLevel++;
+          loadLevel(currentLevel);
+          feedback.innerText = "Draw bonds to connect the atoms!";
+          feedback.style.color = "white";
+        }, 2500);
+      } else {
+        setTimeout(() => alert("You beat all the levels!"), 500);
+      }
+    }
+
+    function setMode(newMode) {
+      mode = newMode;
+      document.querySelectorAll('.controls button').forEach(b => b.classList.remove('active'));
+      document.getElementById('btn-' + newMode).classList.add('active');
+      selectedForBond = null; 
+      atoms.forEach(a => a.node.style.backgroundColor = "#333");
+    }
+
+    // --- 9. CLEAR BOARD LOGIC ---
+    function clearBoard() {
+      bonds = []; 
+      
+      atoms.forEach(atom => atom.lonePairs = 0); 
+      
+      let feedback = document.getElementById('feedback');
+      feedback.innerText = "Bonds and lone pairs cleared!";
+      feedback.style.color = "white";
+      
+      updateDisplay(); 
+    }
+
+    loadLevel(0);
+  </script>
+</body>
+
+<footer>
+      <h1>Copyright</h1>
+
+      <button type="button" onclick=location.href="..">Start now.</button>
+    </footer>
