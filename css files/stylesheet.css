@@ -56,4 +56,11 @@ footer button{
   margin-left: 80%;
 }
 
+#side-pfp{
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-left: 20px;
+}
+
 /*Since every page is almost built the same ^^ */

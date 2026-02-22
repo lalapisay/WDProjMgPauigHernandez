@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', function (event) {
         event.preventDefault();
 
-        const pfp = "assets/ootuff.png"; // default profile picture path
+        const DEFAULT_PFP = 'assets/ootuff.png';
 
         const username = (document.getElementById('username') || {}).value || '';
         const email = (document.getElementById('email') || {}).value || '';
@@ -25,15 +25,44 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const theuser = {
-            username: username,
-            email: email,
-            password: password,
-            pfp: pfp
-        };
+        
 
-        localStorage.setItem('theuser', JSON.stringify(theuser));
-        alert('Sign up successful');
-        //window.location.href = './12_LoginPage.html'; // optional redirect
+        
+
+        function saveUser(pfpUrl) {
+            const theuser = {
+                username: username,
+                email: email,
+                password: password,
+                pfp: pfpUrl
+            };
+
+            localStorage.setItem('theuser', JSON.stringify(theuser));
+            localStorage.setItem('loggedInUser', JSON.stringify(theuser));
+            alert('Sign up successful');
+            localStorage.setItem("loggedInUser", "true");
+            window.location.href = '../index.html'; 
+            
+        }
+
+        // If there's a file input with id 'pfp' (optional), read it and save as data URL.
+        const fileInput = document.getElementById('pfp');
+        if (fileInput && fileInput.files && fileInput.files[0]) {
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const dataUrl = e.target.result;
+                saveUser(dataUrl);
+            };
+            reader.onerror = function () {
+                // If reading fails, fall back to default
+                saveUser(DEFAULT_PFP);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            // No upload provided — use default image path
+            saveUser(DEFAULT_PFP);
+        }
+       
     });
 });

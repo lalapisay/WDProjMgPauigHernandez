@@ -16,7 +16,7 @@
       font-family: Arial, sans-serif;
       text-align: center;
       margin-top: 50px;
-      background-color: #f4f4f9;
+      background-color: #c8b1a4;
     }
     #game-container {
       background: white;
@@ -24,6 +24,9 @@
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       display: inline-block;
+      border: 2px solid black;
+      margin-top: 20px;
+      margin-bottom: 20px;
     }
     #equation-display {
       font-size: 28px;
@@ -69,11 +72,13 @@
 
 <body>
     <div class="topnav">
-        <img src="../assets/logo.png" alt="Logo" height="50px" width="50px">
-        <a class="active" href="../index.html">Home</a>
-        <a href="../public/2_GameDirectory.html">Games & Quizzes</a>
-        <h1>ChemPlay</h1>
-    </div><!--For the nav bar-->
+<img src="../assets/logo.png" alt="Logo" height="50px" width="50px">
+<a class="active" href="../index.html">Home</a>
+<a href="./2_GameDirectory.html">Games & Quizzes</a>
+<a href="./10_SignUp.html" id="sign_up">Sign Up</a>
+<h1>ChemPlay</h1>
+<img id="side-pfp" class="sidepfp" src="../assets/ootuff.png">
+</div> 
     <div id="game-container">
     <div id="score-display">Score: 0</div>
     <h2>Balance the Equation!</h2>
@@ -297,4 +302,6 @@
     window.onload = loadNewLevel;
   </script>
 </body>
+<script src="../js files/sidepfp.js"></script>
+<script src="../js files/disappear.js"></script>
 </html>
