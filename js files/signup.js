@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', function (event) {
         event.preventDefault();
 
+        const pfp = "assets/ootuff.png"; // default profile picture path
+
         const username = (document.getElementById('username') || {}).value || '';
         const email = (document.getElementById('email') || {}).value || '';
         const password = (document.getElementById('password') || {}).value || '';
@@ -27,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             username: username,
             email: email,
             password: password,
+            pfp: pfp
         };
 
         localStorage.setItem('theuser', JSON.stringify(theuser));
