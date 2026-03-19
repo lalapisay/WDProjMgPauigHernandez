@@ -57,3 +57,27 @@ We plan to use JS in the webpages containing the games. For the first game (Atom
 
 
 ******
+
+# FINAL MODIFICATION PROPOSAL
+
+## Things to be added to existing webpages:
+
+### 1. A "Delete Account" option
+#### The user can totally remove all of the data they have saved in localStorage by using the "Delete Account" option found in the settings. At the very bottom of the user settings section of the settings, this option will show up as a thin, small, but noticeable button.  A confirm banner asking the user if they are certain they want to deactivate their account will show up when they click this button. The user's data stored in the localStorage will be promptly erased after they have confirmed their decision. This feature will be added in case the user wants to delete an account that they won't be using in the future or that they aren't using right now. Additionally, this option is for privacy in the event that the user decides they no longer want their data on the platform.
+
+### 2. A "Log Out" option
+#### The "Log out" option allows the user to log out of their account at any moment by deleting their authentication token from localStorage. This option, which resembles a grey button next to the delete account option, is found in the user settings section of the settings page. When the user clicks this, a confirmation banner appears as though they wish to log out. The user's authentication token will be deleted from localStorage if they confirm, and they will only be able to retrieve it by logging back in on the log-in page. 
+
+### 3. An option that allows the user to change their lesson preferences in the settings page
+
+
+### 4. Change password option
+
+### 5. Change email option
+
+### 6. Change profile picture option
+
+
+******
+
+## Final Modification Wireframes:
