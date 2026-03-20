@@ -65,19 +65,18 @@ We plan to use JS in the webpages containing the games. For the first game (Atom
 ### 1. A "Delete Account" option
 #### The user can totally remove all of the data they have saved in localStorage by using the "Delete Account" option found in the settings. At the very bottom of the user settings section of the settings, this option will show up as a thin, small, but noticeable button.  A confirm banner asking the user if they are certain they want to deactivate their account will show up when they click this button. The user's data stored in the localStorage will be promptly erased after they have confirmed their decision. This feature will be added in case the user wants to delete an account that they won't be using in the future or that they aren't using right now. Additionally, this option is for privacy in the event that the user decides they no longer want their data on the platform.
 
-### 2. A "Log Out" option
-#### The "Log out" option allows the user to log out of their account at any moment by deleting their authentication token from localStorage. This option, which resembles a grey button next to the delete account option, is found in the user settings section of the settings page. When the user clicks this, a confirmation banner appears as though they wish to log out. The user's authentication token will be deleted from localStorage if they confirm, and they will only be able to retrieve it by logging back in on the log-in page. 
+### 2. An option that allows the user to change their lesson preferences in the settings page
+#### The user can easily modify the lesson preferences they selected when they signed up in the user settings to stay up to date with their current lessons. The user will see many checkboxes that resemble those on the sign-up page directly beneath the user settings section of the page. Lessons that the user has recently selected will already have a checkmark on them. The user's choices that are kept in localStorage will be updated after they check the lessons they wish to learn more about or uncheck the lessons they have already mastered. The problem set page's suggested files will also change based on the lesson that the user selects.
 
-### 3. An option that allows the user to change their lesson preferences in the settings page
+### 3. Change password and email option
+#### The user can quickly modify their email address and password in the user settings if they believe that an unidentified person has compromised their data. The user can update their account details in the empty text box or password box directly beneath the text box containing their email address or password. When the user is happy with their new email address or password, they can click "Save Changes" and see a confirm banner asking if they want to continue. Their previous password or email kept in localStorage would be replaced with the new one after everything was verified. 
 
-
-### 4. Change password option
-
-### 5. Change email option
-
-### 6. Change profile picture option
+### 4. Change profile picture option
+#### The user can always alter their profile image in the user preferences if they wish to further customize their profile. The user's account has a preset profile image when they sign up. The user can update their profile photo by clicking upload after selecting a file to use as their picture. They can click remove to erase the image if they are unhappy with the one they just selected. 
 
 
 ******
 
 ## Final Modification Wireframes:
+
+![Final Modification Wireframe](wireframes/FOR%20FINAL%20MOD.png)
