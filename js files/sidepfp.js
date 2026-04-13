@@ -2,7 +2,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const pfpImg = document.getElementById('side-pfp');
     if (!pfpImg) return;
 
-    const user = JSON.parse(localStorage.getItem('loggedInUser') || 'null');
+    function readStoredUser(key) {
+        const raw = localStorage.getItem(key);
+        if (!raw) return null;
+        try {
+            const parsed = JSON.parse(raw);
+            return parsed && typeof parsed === 'object' ? parsed : null;
+        } catch {
+            return null;
+        }
+    }
+
+    const user = readStoredUser('loggedInUser') || readStoredUser('theuser');
 
     if (user && user.username && user.pfp) {
         pfpImg.src = user.pfp;

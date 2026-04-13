@@ -9,21 +9,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const username = (document.getElementById('username') || {}).value || '';
         const email = (document.getElementById('email') || {}).value || '';
-        const password = (document.getElementById('password') || {}).value || '';
-        const confirmPassword = (document.getElementById('confirm_password') || {}).value || '';
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirm_password');
+        const password = (passwordInput || {}).value || '';
+        const confirmPassword = (confirmPasswordInput || {}).value || '';
         console.log(username, email, password, confirmPassword);
+
+        function setFieldValidity(field, isValid) {
+            if (!field) return;
+            field.classList.toggle('invalid', !isValid);
+            field.classList.toggle('valid', isValid);
+        }
+
+        passwordInput?.addEventListener('input', () => {
+            setFieldValidity(passwordInput, true);
+        });
+
+        confirmPasswordInput?.addEventListener('input', () => {
+            setFieldValidity(confirmPasswordInput, true);
+        });
 
         if (password !== confirmPassword) {
             console.error('Passwords do not match');
             alert('Passwords do not match');
+            setFieldValidity(passwordInput, false);
+            setFieldValidity(confirmPasswordInput, false);
             return;
         }
 
         if (password.length < 8) {
             console.error('Password must be at least 8 characters long');
             alert('Password must be at least 8 characters long');
+            setFieldValidity(passwordInput, false);
             return;
         }
+
+        setFieldValidity(passwordInput, true);
+        setFieldValidity(confirmPasswordInput, true);
 
         
 
@@ -40,7 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('theuser', JSON.stringify(theuser));
             localStorage.setItem('loggedInUser', JSON.stringify(theuser));
             alert('Sign up successful');
-            localStorage.setItem("loggedInUser", "true");
             window.location.href = '../index.html'; 
             
         }
