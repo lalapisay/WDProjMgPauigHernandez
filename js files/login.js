@@ -34,7 +34,6 @@ form.addEventListener('submit', function(event) {
     if (found) {
         console.log('Login successful!!1 welcome back gng');
         localStorage.setItem('loggedInUser', JSON.stringify(found));
-        localStorage.setItem("loggedInUser", "true");
         window.location.href = '../index.html';
     } else {
         alert('r u even real gng?!!1? u gotta sign up first'); //the user isn't in the local storage :(

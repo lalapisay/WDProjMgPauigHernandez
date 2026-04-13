@@ -52,6 +52,49 @@
         background-color: orange;
         border: none;
     }
+    .optional-box {
+        border: 2px solid #cccccc;
+        border-radius: 12px;
+        background-color: #fafafa;
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+    .optional-box summary {
+        font-weight: 700;
+        cursor: pointer;
+        list-style: none;
+        outline: none;
+    }
+    .optional-box summary::-webkit-details-marker {
+        display: none;
+    }
+    .optional-box summary::after {
+        content: "▼";
+        float: right;
+        transition: transform 0.2s ease;
+    }
+    .optional-box[open] summary::after {
+        transform: rotate(-180deg);
+    }
+    .section-title {
+        font-weight: 700;
+        margin: 0.75rem 0 0.5rem 0;
+    }
+    .primary-fields {
+        padding-left: 1rem;
+        margin-bottom: 1rem;
+    }
+    .primary-fields label,
+    .primary-fields input {
+        display: block;
+    }
+    .password-field.invalid {
+        border: 2px solid red;
+        background-color: #ffcccc;
+    }
+    .password-field.valid {
+        border: 2px solid green;
+    }
 </style>
 <body>
     <div class="topnav">
@@ -59,7 +102,10 @@
 <a class="active" href="../index.html">Home</a>
 <a href="./2_GameDirectory.html">Games & Quizzes</a>
 <a href="./10_SignUp.html">Sign Up</a>
-<h1>ChemPlay</h1>
+<div class="brand">
+    <h1>ChemPlay</h1>
+    <img id="side-pfp" class="sidepfp" src="../assets/ootuff.png" alt="User profile picture">
+</div>
 </div> 
 
 <div class="navtop">
@@ -70,46 +116,63 @@
 
 <div class="box">
     <form id="signup">
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username"><br>
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email"><br>
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password"><br><br>
-        <label for="confirm_password">Confirm Password:</label><br>
-        <input type="password" id="confirm_password" name="confirm_password"><br><br>
-        <!--radio buttons for each grade level-->
-        <div class="gradegrid">
-            <div class="gcol">
-                <label class="gitem"><input type="radio" id="g12" name="level" value="grade12"> Grade 12</label>
-                <label class="gitem"><input type="radio" id="g11" name="level" value="grade11"> Grade 11</label>
-                <label class="gitem"><input type="radio" id="g10" name="level" value="grade10"> Grade 10</label>
-            </div>
-            <div class="gcol">
-                <label class="gitem"><input type="radio" id="g9" name="level" value="grade9"> Grade 9</label>
-                <label class="gitem"><input type="radio" id="g8" name="level" value="grade8"> Grade 8</label>
-                <label class="gitem"><input type="radio" id="g7" name="level" value="grade7"> Grade 7</label>
-            </div>
+        <div class="primary-fields">
+            <label for="username"><b>Username:</b></label>
+            <input type="text" id="username" name="username" required><br>
+
+            <label for="email"><b>Email:</b></label>
+            <input type="email" id="email" name="email" required><br>
+
+            <label for="password"><b>Password:</b></label>
+            <input type="password" id="password" name="password" class="password-field" required><br><br>
+
+            <label for="confirm_password"><b>Confirm Password:</b></label>
+            <input type="password" id="confirm_password" name="confirm_password" class="password-field" required><br><br>
         </div>
-        <!--for preferences-->
-        <div class="gradegrid">
-            <div class="gcol">
-                <label class="gitem"><input type="checkbox" id="lesson1" name="preference" value="lesson1"> Lesson 1</label>
-                <label class="gitem"><input type="checkbox" id="lesson2" name="preference" value="lesson2"> Lesson 2</label>
-                <label class="gitem"><input type="checkbox" id="lesson3" name="preference" value="lesson3"> Lesson 3</label>
+
+        <details class="optional-box">
+            <summary>Optional info</summary><br>
+            <div class="profile-pic-div">
+                <label for="pfp" id="uploadBtn"><b>Profile Picture:</b></label><br>
+                <img src="default.png" id="photo">
+                <input type="file" id="pfp" accept="image/*"><br><br>
             </div>
-            <div class="gcol">
-                <label class="gitem"><input type="checkbox" id="lesson4" name="preference" value="lesson4"> Lesson 4</label>
-                <label class="gitem"><input type="checkbox" id="lesson5" name="preference" value="lesson5"> Lesson 5</label>
-                <label class="gitem"><input type="checkbox" id="lesson6" name="preference" value="lesson6"> Lesson 6</label>
+
+            <!--radio buttons for each grade level-->
+            <div class="section-title"><b>Grade Level:</b></div>
+            <div class="gradegrid">
+                <div class="gcol">
+                    <label class="gitem"><input type="radio" id="g12" name="level" value="grade12"> Grade 12</label>
+                    <label class="gitem"><input type="radio" id="g11" name="level" value="grade11"> Grade 11</label>
+                    <label class="gitem"><input type="radio" id="g10" name="level" value="grade10"> Grade 10</label>
+                </div>
+                <div class="gcol">
+                    <label class="gitem"><input type="radio" id="g9" name="level" value="grade9"> Grade 9</label>
+                    <label class="gitem"><input type="radio" id="g8" name="level" value="grade8"> Grade 8</label>
+                    <label class="gitem"><input type="radio" id="g7" name="level" value="grade7"> Grade 7</label>
+                </div>
             </div>
-            <div class="gcol">
-                <label class="gitem"><input type="checkbox" id="lesson7" name="preference" value="lesson7"> Lesson 7</label>
-                <label class="gitem"><input type="checkbox" id="lesson8" name="preference" value="lesson8"> Lesson 8</label>
-                <label class="gitem"><input type="checkbox" id="lesson9" name="preference" value="lesson9"> Lesson 9</label>
+
+            <!--for preferences-->
+            <div class="section-title"></b>Lesson Plan:</b></div>
+            <div class="gradegrid">
+                <div class="gcol">
+                    <label class="gitem"><input type="checkbox" id="lesson1" name="preference" value="lesson1"> Lesson 1</label>
+                    <label class="gitem"><input type="checkbox" id="lesson2" name="preference" value="lesson2"> Lesson 2</label>
+                    <label class="gitem"><input type="checkbox" id="lesson3" name="preference" value="lesson3"> Lesson 3</label>
+                </div>
+                <div class="gcol">
+                    <label class="gitem"><input type="checkbox" id="lesson4" name="preference" value="lesson4"> Lesson 4</label>
+                    <label class="gitem"><input type="checkbox" id="lesson5" name="preference" value="lesson5"> Lesson 5</label>
+                    <label class="gitem"><input type="checkbox" id="lesson6" name="preference" value="lesson6"> Lesson 6</label>
+                </div>
+                <div class="gcol">
+                    <label class="gitem"><input type="checkbox" id="lesson7" name="preference" value="lesson7"> Lesson 7</label>
+                    <label class="gitem"><input type="checkbox" id="lesson8" name="preference" value="lesson8"> Lesson 8</label>
+                    <label class="gitem"><input type="checkbox" id="lesson9" name="preference" value="lesson9"> Lesson 9</label>
+                </div>
             </div>
-        
-        </div>
+        </details>
         <a href="./12_LoginPage.html">Already have an account? Login here.</a>
         <h15>(BY THE WAY, we still haven't done the lesson pdfs yet, neither did we plan on what lessons to include huhu -- Lala)</h15>
         <div></div>
@@ -117,6 +180,7 @@
     </form>
 </div>
 <script src="../js files/signup.js"></script>
+<script src="../js files/sidepfp.js"></script>
 </body>
 
 </html>
