@@ -8,8 +8,8 @@
     <meta name="author" content="Lala Pauig, Enzo Hernandez">
     
     <title>Easy Quiz</title>
-    <link rel="stylesheet" href="./css files/stylesheet.css">
-    <link rel = "icon" href = "./assets/logo.png" type = "image/png">
+    <link rel="stylesheet" href="../css files/stylesheet.css">
+    <link rel = "icon" href = "../assets/logo.png" type = "image/png">
 </head>
 <style>
 html, body {
@@ -18,35 +18,51 @@ html, body {
 }
 .topnav{
     background-color: #191716;
-    width: 100vw;
-    height: 70px;
-
+    width: 100%;
     display: flex;
     align-items: center;
-    padding: 0 30px;}
+    padding: 0 30px;
+}
 .topnav a {
-  float: left;
+  float: none;
   color: #fffb00;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-  font-size: 30px;}
+  font-size: 30px;
+}
 .topnav a:hover {
   background-color: #ddd;
-  color: black;}
+  color: black;
+}
 .topnav a.active {
   background-color: #04AA6D;
-  color: white;}
+  color: white;
+}
 .topnav img {
-    float: left;
-  padding: 14px 16px;
+    float: none;
+    padding: 0;
+    margin: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.topnav .brand {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-direction: row-reverse;
 }
 .topnav h1{
-    float:right;
+    float:none;
     color: white;
     text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;}
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
 .quizcontainer{
   display: flex;
   flex-direction: row;

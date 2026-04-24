@@ -2,32 +2,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('signup');
     if (!form) return;
 
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirm_password');
+
+    function setFieldValidity(field, isValid) {
+        if (!field) return;
+        field.classList.toggle('invalid', !isValid);
+        field.classList.toggle('valid', isValid);
+    }
+
+    passwordInput?.addEventListener('input', () => {
+        setFieldValidity(passwordInput, true);
+    });
+
+    confirmPasswordInput?.addEventListener('input', () => {
+        setFieldValidity(confirmPasswordInput, true);
+    });
+
     form.addEventListener('submit', function (event) {
         event.preventDefault();
 
-        const DEFAULT_PFP = 'assets/ootuff.png';
+        const DEFAULT_PFP = new URL('../assets/ootuff.png', window.location.href).href;
 
-        const username = (document.getElementById('username') || {}).value || '';
-        const email = (document.getElementById('email') || {}).value || '';
-        const passwordInput = document.getElementById('password');
-        const confirmPasswordInput = document.getElementById('confirm_password');
+        const username = (document.getElementById('username') || {}).value.trim() || '';
+        const email = (document.getElementById('email') || {}).value.trim() || '';
         const password = (passwordInput || {}).value || '';
         const confirmPassword = (confirmPasswordInput || {}).value || '';
         console.log(username, email, password, confirmPassword);
-
-        function setFieldValidity(field, isValid) {
-            if (!field) return;
-            field.classList.toggle('invalid', !isValid);
-            field.classList.toggle('valid', isValid);
-        }
-
-        passwordInput?.addEventListener('input', () => {
-            setFieldValidity(passwordInput, true);
-        });
-
-        confirmPasswordInput?.addEventListener('input', () => {
-            setFieldValidity(confirmPasswordInput, true);
-        });
 
         if (password !== confirmPassword) {
             console.error('Passwords do not match');

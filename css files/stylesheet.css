@@ -1,51 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@300..700&display=swap');
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+     font-family: 'Press Start 2P', system-ui;
+}
+
+/*Base Navigation Menu*/
+
 .topnav{
     background-color: #191716;
     display: flex;
-    align-items: flex-start;
-    overflow: hidden;}
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding: 0 20px;
+    font-family: 'Press Start 2P';
+}
+
 .topnav a {
   float: none;
   margin: 0;
   color: #fffb00;
   text-align: center;
-  padding: 14px 16px;
+  padding: 14px 18px;
   text-decoration: none;
-  font-size: 30px;}
+  font-size: 25px;
+}
+
 .topnav a:hover {
   background-color: #ddd;
-  color: black;}
+  color: black;
+}
+
 .topnav img {
     float: none;
     margin: 0;
-  padding: 14px 16px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
 }
+
 .topnav .brand {
-    float: right;
-    display: inline-flex;
+    margin-left: auto;
+    display: flex;
     align-items: center;
     gap: 0.5rem;
+    flex-direction: row-reverse;
 }
 .topnav .brand h1 {
     float: none;
     margin: 0;
-    padding: 14px 16px;
+    padding: 0;
+    color: white;
+    font-size: 1.2rem;
 }
 .topnav .brand img#side-pfp {
     float: none;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     margin: 0;
 }
 .topnav h1{
-    float: none;               
-    padding: 14px 16px;
+    float: none;
+    padding: 0;
     margin: 0;
-    margin-left: auto;
     color: white;
     text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;}
+    text-decoration: none;
+}
 
 /*all of the above is for the navigation bar -- Lala*/
 
@@ -80,9 +106,10 @@ footer button{
 
 #side-pfp{
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  margin-left: 20px;
+  width: 60px;
+  height: 60px;
+  margin-left: 0;
+  object-fit: cover;
 }
 
 /*Since every page is almost built the same ^^ */
