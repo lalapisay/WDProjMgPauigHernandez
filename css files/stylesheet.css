@@ -1,24 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@300..700&display=swap');
-
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-     font-family: 'Press Start 2P', system-ui;
+html, body {
+    overflow-x: hidden;
 }
-
-/*Base Navigation Menu*/
 
 .topnav{
     background-color: #191716;
     display: flex;
+    align-items: flex-start;
+    overflow: hidden;
+    width: 100%;
+    height: 60px;
+    flex-shrink: 0;
     align-items: center;
-    justify-content: flex-start;
-    gap: 1rem;
-    padding: 0 20px;
-    font-family: 'Press Start 2P';
-}
-
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99999;
+  }
 .topnav a {
   float: none;
   margin: 0;
@@ -45,7 +43,7 @@
 
 .topnav .brand {
     margin-left: auto;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     flex-direction: row-reverse;
@@ -81,7 +79,10 @@ body{
 
 .navtop{ 
     background-color: #3d348b; 
-    overflow: hidden;} 
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    margin-top: 60px;} 
 
 .navtop h1{ 
     float: center; 
@@ -95,6 +96,7 @@ footer{
   flex-direction: row;
   padding-left: 20px;
   padding-right: 20px;
+  width: 100%;
 }
 
 footer button{
@@ -106,10 +108,27 @@ footer button{
 
 #side-pfp{
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  margin-left: 0;
-  object-fit: cover;
+  width: 50px;
+  height: 50px;
+  margin-left: 20px;
 }
+
+
+p {
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700px;
+  font-style: normal;
+}
+
+
+h1, h2, h3, h4, h5, h6, a {
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+
 
 /*Since every page is almost built the same ^^ */

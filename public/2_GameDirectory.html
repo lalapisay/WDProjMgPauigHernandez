@@ -9,6 +9,9 @@
     
     <title>Game Directory</title>
     <link rel="stylesheet" href="../css files/stylesheet.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
     <link rel = "icon" href = "../assets/logo.png" type = "image/png">
 
 </head>
@@ -19,7 +22,8 @@ body{
 
 .navtop{ 
     background-color: #3d348b; 
-    overflow: hidden;} 
+    overflow: hidden;
+    } 
 
 .navtop h1{ 
     float: center; 
@@ -28,7 +32,7 @@ body{
 .gamecontainer1{ 
     display: flex; 
     justify-content: center; 
-    gap: 15px; } 
+    gap: 15px;} 
 
 .gamecontainer2{ 
     display: flex;
@@ -76,23 +80,32 @@ body{
 .buttoncontainer button{ 
     border: none; 
     background-color: orange; 
-    padding: 15px 32px; 
+    padding: 15px 32px;
     text-align: center; 
     font-size: 16px; 
-    margin: 2px 2px; 
-    border-radius: 15px 50px 15px 50px; 
-    cursor: pointer; }
+    border-radius: 15px; 
+    cursor: pointer;}
+
+button:hover {
+  background-color: hwb(44 16% 0%); 
+  color: #000000; 
+  transform: scale(1.1);
+  transition: transform 0.2s ease-in-out;
+
+}
 
 .contentcontainerbutdifferent{ 
     background-color: white;
     border: 2px solid black; 
-    width: 100%; 
+    width: 98.5%; 
     margin-top: 15px; 
     margin-bottom: 15px; 
     margin-left: 20px; 
     margin-right: 20px; 
     display: flex; 
-    flex-direction: column; } 
+    flex-direction: column; 
+    border-radius: 15px;
+    box-shadow: #3d348b 5px;} 
 
 .row{
     display: flex;
@@ -105,15 +118,15 @@ body{
 </style>
 <body>
 <div class="topnav">
-<img src="../assets/logo.png" alt="Logo" height="50px" width="50px">
-<a class="active" href="../index.html">Home</a>
-<a href="./2_GameDirectory.html">Games & Quizzes</a>
-<a href="./10_SignUp.html" id="sign_up">Sign Up</a>
-<div class="brand">
-    <h1>ChemPlay</h1>
+    <img src="../assets/logo.png" alt="Logo" height="50px" width="50px">
+    <a class="active" href="../index.html">Home</a>
+    <a href="./2_GameDirectory.html">Games & Quizzes</a>
+    <a href="./10_SignUp.html" id="sign_up">Sign Up</a>
     <img id="side-pfp" class="sidepfp" src="../assets/ootuff.png" alt="User profile picture">
+    <div class="brand">
+        <h1 style="margin: 0 16px 0 0; font-size: 2rem; color: white; font-family: 'Josefin Sans', sans-serif;">ChemPlay</h1>
+    </div>
 </div>
-</div> 
 
 <div class="navtop">
     <h1>GAMES</h1>
@@ -147,7 +160,7 @@ body{
         
         <div class="contentbody">
             <img src="../assets/balance.png" alt="Balancing Equations">
-            <p>TBA</p>
+            <p>Balancing chemical equations is a fundamental skill in chemistry. This game will help you practice and master the art of balancing equations!</p>
         </div><!--content ng body ng container-->
 
         <div class="buttoncontainer">
@@ -166,7 +179,7 @@ body{
         
         <div class="contentbody">
             <img src="../assets/hybrid.png" alt="Octet Finding">
-            <p>TBA</p>
+            <p>The hybridization model is a way to understand how hybridization in atoms work. Play this game to learn more about hybridization!</p>
         </div><!--content ng body ng container-->
 
         <div class="buttoncontainer">
@@ -182,7 +195,7 @@ body{
 <div class="row">
   <div class="column">
     <div class="contentcontainerbutdifferent">
-        <div class="contbar">
+        <div class="contbar" style="border-radius: 15px;">
             <h2>Easy Quiz</h2>
         
         </div> <!--Content bar-->
@@ -201,7 +214,7 @@ body{
   
   <div class="column">
     <div class="contentcontainerbutdifferent">
-        <div class="contbar">
+        <div class="contbar" style="border-radius: 15px;">
             <h2>Medium Quiz</h2>
         
         </div> <!--Content bar-->
@@ -220,7 +233,7 @@ body{
   
   <div class="column">
     <div class="contentcontainerbutdifferent">
-        <div class="contbar">
+        <div class="contbar" style="border-radius: 15px">
             <h2>Hard Quiz</h2>
         
         </div> <!--Content bar-->
