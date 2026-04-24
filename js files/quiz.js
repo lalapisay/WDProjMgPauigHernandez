@@ -111,6 +111,11 @@ function startHardQuiz(){
 }
 
 function submitAnswer(){
+    if (!quizMode || currentAnswers.length === 0) {
+        alert('Quiz is not initialized yet.');
+        return;
+    }
+
     const selected = document.querySelector('input[name="option"]:checked');
     if (!selected) {
         const optionModal = document.getElementById("option-modal");

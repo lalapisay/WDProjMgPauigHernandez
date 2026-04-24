@@ -115,6 +115,14 @@
       border-color: #00d2ff;
     }
 
+    .atom-dispenser, .element-node {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
     .atom-dispenser .symbol {
       font-size: 28px;
       font-weight: bold;
@@ -175,6 +183,138 @@
     }
     #trash:hover {
       opacity: 1;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      body {
+        height: 100vh;
+      }
+
+      #top-section {
+        height: calc(100vh - 120px);
+        flex-direction: column;
+      }
+
+      #sidebar {
+        width: 100%;
+        height: 100px;
+        padding: 10px;
+        border-right: none;
+        border-bottom: 3px solid #444;
+        overflow-x: auto;
+        overflow-y: hidden;
+      }
+
+      #sidebar h2 {
+        font-size: 0.9rem;
+        margin: 0;
+        padding-bottom: 5px;
+      }
+
+      .inventory-item {
+        display: inline-block;
+        margin: 0 5px;
+        padding: 8px 12px;
+        font-size: 0.8rem;
+        min-width: 60px;
+      }
+
+      #workspace {
+        flex-grow: 1;
+        background-size: 20px 20px;
+      }
+
+      #bottom-tray {
+        height: 120px;
+        padding: 10px;
+        gap: 8px;
+      }
+
+      .atom-dispenser {
+        min-width: 60px;
+        height: 60px;
+      }
+
+      .atom-dispenser .symbol {
+        font-size: 20px;
+      }
+
+      .atom-dispenser .name {
+        font-size: 8px;
+      }
+
+      .element-node {
+        width: 60px;
+        height: 60px;
+        font-size: 0.8rem;
+      }
+
+      .element-node .symbol {
+        font-size: 20px;
+      }
+
+      .element-node .number {
+        font-size: 0.65rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #sidebar {
+        height: 80px;
+        padding: 5px;
+      }
+
+      #sidebar h2 {
+        font-size: 0.8rem;
+        display: none;
+      }
+
+      .inventory-item {
+        padding: 5px 8px;
+        font-size: 0.7rem;
+        min-width: 50px;
+      }
+
+      #top-section {
+        height: calc(100vh - 100px);
+      }
+
+      #bottom-tray {
+        height: 100px;
+        padding: 5px;
+        gap: 5px;
+      }
+
+      .atom-dispenser {
+        min-width: 50px;
+        height: 50px;
+      }
+
+      .atom-dispenser .symbol {
+        font-size: 16px;
+      }
+
+      .atom-dispenser .name {
+        font-size: 7px;
+      }
+
+      .element-node {
+        width: 50px;
+        height: 50px;
+        font-size: 0.7rem;
+      }
+
+      .element-node .symbol {
+        font-size: 16px;
+      }
+
+      #trash {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+        top: 10px;
+        right: 10px;
+      }
     }
   </style>
 <body>
@@ -607,32 +747,43 @@
       activeElement = null; 
     };
 
-    function clearWorkspace() {
-      document.querySelectorAll(".element-node").forEach(node => node.remove());
-    }
+    // Touch event support for mobile
+    document.ontouchstart = (e) => {
+      const touch = e.touches[0];
+      const elementAtPoint = document.elementFromPoint(touch.clientX, touch.clientY);
+      if (elementAtPoint && elementAtPoint.classList.contains("element-node")) {
+        activeElement = elementAtPoint;
+        activeElement.style.zIndex = 100;
+      }
+    };
 
-    // --- 5. MERGING LOGIC ---
-    function checkCollisions(draggedNode) {
-      let nodes = document.querySelectorAll(".element-node");
-      let rect1 = draggedNode.getBoundingClientRect();
+    document.ontouchmove = (e) => {
+      if (activeElement) {
+        e.preventDefault();
+        const touch = e.touches[0];
+        let workspaceRect = workspace.getBoundingClientRect();
+        
+        activeElement.style.left = (touch.clientX - workspaceRect.left) + "px";
+        activeElement.style.top = (touch.clientY - workspaceRect.top) + "px";
+      }
+    };
 
-      for (let targetNode of nodes) {
-        if (targetNode === draggedNode) continue; 
-
-        let rect2 = targetNode.getBoundingClientRect();
-        let isOverlapping = !(
+    document.ontouchend = (e) => {
+      if (!activeElement) return;
+      activeElement.style.zIndex = 1; 
+      checkCollisions(activeElement);
+      activeElement = null; 
+      const nodes = document.querySelectorAll(".element-node");
           rect1.right < rect2.left || 
           rect1.left > rect2.right || 
           rect1.bottom < rect2.top || 
           rect1.top > rect2.bottom
-        );
 
         if (isOverlapping) {
           attemptMerge(draggedNode, targetNode);
-          break; 
+          break 
         }
-      }
-    }
+    };
 
     function attemptMerge(node1, node2) {
       let id1 = node1.dataset.id;
