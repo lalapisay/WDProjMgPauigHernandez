@@ -70,6 +70,107 @@
       margin-top: 20px;
       height: 25px;
     }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      body {
+        margin-top: 30px;
+      }
+
+      #game-container {
+        width: 90%;
+        padding: 15px;
+        margin: 15px auto;
+        border: 2px solid black;
+      }
+
+      #equation-display {
+        font-size: 18px;
+        margin: 15px 0;
+      }
+
+      .coeff-input {
+        width: 40px;
+        height: 28px;
+        font-size: 16px;
+        margin: 0 3px;
+      }
+
+      .formula {
+        font-size: 0.95rem;
+        margin-right: 8px;
+      }
+
+      button {
+        padding: 8px 16px;
+        font-size: 14px;
+        margin: 3px;
+      }
+
+      #feedback-message {
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #game-container {
+        width: 85%;
+        padding: 10px;
+        margin: 10px auto;
+      }
+
+      #equation-display {
+        font-size: 14px;
+        margin: 10px 0;
+        flex-wrap: wrap;
+      }
+
+      .coeff-input {
+        width: 35px;
+        height: 24px;
+        font-size: 14px;
+        margin: 2px 2px;
+      }
+
+      .formula {
+        font-size: 0.8rem;
+        margin-right: 5px;
+        margin-bottom: 5px;
+      }
+
+      button {
+        padding: 6px 12px;
+        font-size: 12px;
+        margin: 2px;
+        width: 90%;
+      }
+
+      #feedback-message {
+        font-size: 0.8rem;
+        height: auto;
+      }
+
+      #whiteboard-section {
+        margin-top: 15px;
+      }
+
+      #whiteboard-section h3 {
+        margin: 8px 0;
+        font-size: 1rem;
+      }
+
+      #scratchpad {
+        display: block;
+        margin: 8px auto;
+        border: 2px solid #333;
+        touch-action: none;
+      }
+
+      .clear-btn {
+        width: 90%;
+        margin-top: 8px;
+      }
+    }
 </style>
 </head>
 
@@ -281,10 +382,34 @@
     const ctx = canvas.getContext('2d');
     let isDrawing = false;
 
-    ctx.lineWidth = 3;
-    ctx.lineCap = "round";
-    ctx.strokeStyle = "#333";
+    // Responsive canvas sizing for mobile
+    function resizeCanvas() {
+      const container = canvas.parentElement;
+      const maxWidth = Math.min(window.innerWidth * 0.9, 600);
+      const maxHeight = Math.min(window.innerHeight * 0.3, 200);
+      
+      canvas.width = maxWidth;
+      canvas.height = maxHeight;
+      
+      ctx.lineWidth = 3;
+      ctx.lineCap = "round";
+      ctx.strokeStyle = "#333";
+    }
 
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Helper function to get touch position relative to canvas
+    function getTouchPos(e) {
+      const touch = e.touches[0];
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: touch.clientX - rect.left,
+        y: touch.clientY - rect.top
+      };
+    }
+
+    // Mouse events (desktop)
     canvas.addEventListener('mousedown', (e) => {
       isDrawing = true;
       ctx.beginPath();
@@ -300,6 +425,34 @@
 
     canvas.addEventListener('mouseup', () => isDrawing = false);
     canvas.addEventListener('mouseout', () => isDrawing = false);
+
+    // Touch events (mobile)
+    canvas.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      isDrawing = true;
+      const pos = getTouchPos(e);
+      ctx.beginPath();
+      ctx.moveTo(pos.x, pos.y);
+    });
+
+    canvas.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+      if (isDrawing) {
+        const pos = getTouchPos(e);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+      }
+    });
+
+    canvas.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      isDrawing = false;
+    });
+
+    canvas.addEventListener('touchcancel', (e) => {
+      e.preventDefault();
+      isDrawing = false;
+    });
 
     function clearBoard() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);

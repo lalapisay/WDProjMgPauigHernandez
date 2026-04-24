@@ -115,6 +115,72 @@ button:hover {
     flex: 33.33%;
     padding: 5px;
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .gamecontainer1, .gamecontainer2 {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contentcontainer, .contentcontainerbutdifferent {
+    width: 90% !important;
+  }
+
+  .contentbody {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contentbody img {
+    width: 60% !important;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .column {
+    flex: 100% !important;
+    max-width: 90%;
+  }
+
+  .buttoncontainer button {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contentcontainer, .contentcontainerbutdifferent {
+    width: 85% !important;
+    border: 1px solid black;
+  }
+
+  .contbar h2 {
+    font-size: 1.1rem;
+    margin: 5px;
+  }
+
+  .contentbody img {
+    width: 70% !important;
+  }
+
+  .contentbody p {
+    font-size: 0.8rem;
+  }
+
+  .buttoncontainer button {
+    padding: 10px 20px;
+    font-size: 12px;
+    width: 90%;
+  }
+
+  .column {
+    max-width: 95%;
+  }
+}
 </style>
 <body>
 <div class="topnav">
@@ -141,7 +207,8 @@ button:hover {
         
         <div class="contentbody">
             <img src="../assets/atommerge.png" alt="Atom Merging">
-            <p>Chemical Bonding is the process in which two elements form either an ionic bond, covalent bond, or metallic bond with eachother. Play this game to learn more about chemical bonding!</p>
+            <p>Chemical Bonding is the process in which two elements form either an ionic bond, covalent bond, or metallic bond with eachother. Play this game to learn more about chemical bonding!
+                (Not mobile supported)</p>
         </div><!--content ng body ng container-->
 
         <div class="buttoncontainer">
