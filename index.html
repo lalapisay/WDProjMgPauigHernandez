@@ -89,6 +89,57 @@
   align-items: center;
 }
 
+/* 1. Add position: relative to the container so the absolute text stays inside it */
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.container img {
+  border: 5px solid black;
+  width: 99.20%;
+  height: auto;
+  display: block;
+  margin-top: 70px;
+}
+
+/* 2. Update the text overlay */
+.text-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  width: 90%; /* Prevents text from spilling out the sides on tiny screens */
+}
+
+.text-overlay h1 {
+  /* clamp(minimum, preferred, maximum) scales the text smoothly! */
+  font-size: clamp(40px, 10vw, 150px); 
+  margin: 0 0 15px 0; /* Keeps a small gap between the title and button */
+  text-shadow: 3px 3px 6px rgba(0,0,0,0.6); /* Added a shadow so it's easier to read over the banner */
+}
+
+.text-overlay button {
+  background-color: #fffb00; 
+  border: 2px solid black; 
+  border-radius: 50px; 
+  cursor: pointer;
+  
+  /* Fluid padding and font size for mobile */
+  padding: clamp(12px, 3vw, 30px) clamp(24px, 5vw, 50px);
+  font-size: clamp(16px, 3vw, 35px); 
+  
+  transition: transform 0.2s ease-in-out, background-color 0.2s;
+}
+
+.text-overlay button:hover {
+  background-color: hwb(59 16% 0%); 
+  color: #000000; 
+  transform: scale(1.1);
+}
+
 /* Mobile responsiveness for index page */
 @media (max-width: 768px) {
   .container img {
