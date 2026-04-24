@@ -11,45 +11,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css files/stylesheet.css">
-    <link rel = "icon" href = "./assets/logo.png" type = "image/png">
+    <link rel="stylesheet" href="../css files/stylesheet.css">
+    <link rel = "icon" href = "../assets/logo.png" type = "image/png">
 </head>
 <style>
 html, body {
   height: 100%;
   margin: 0;
 }
-.topnav{
-    background-color: #191716;
-    width: 100vw;
-    height: 70px;
 
-    display: flex;
-    align-items: center;
-    padding: 0 30px;}
-.topnav a {
-  float: left;
-  color: #fffb00;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 30px;}
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;}
-.topnav a.active {
-  background-color: #04AA6D;
-  color: white;}
-.topnav img {
-    float: left;
-  padding: 14px 16px;
-}
-.topnav h1{
-    float:right;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;}
 .quizcontainer{
   display: flex;
   flex-direction: row;
@@ -434,8 +404,19 @@ input[type=radio]:checked ~ .option {
 }
 </style>
 
+
 <body onload="startEasyQuiz()">
-    <main>
+    <div class="topnav">
+    <img src="../assets/logo.png" alt="Logo" height="50px" width="50px">
+    <a class="active" href="../index.html">Home</a>
+    <a href="./2_GameDirectory.html">Games & Quizzes</a>
+    <a href="./10_SignUp.html" id="sign_up">Sign Up</a>
+    <img id="side-pfp" class="sidepfp" src="../assets/ootuff.png" alt="User profile picture">
+    <div class="brand">
+        <h1 style="margin: 0 16px 0 0; font-size: 2rem; color: white; font-family: 'Josefin Sans', sans-serif;">ChemPlay</h1>
+    </div>
+</div>
+    <main style="margin-top: 60px;">
         <!-- creating a modal for when quiz ends -->
         <div class="modal-container" id="score-modal">
 
